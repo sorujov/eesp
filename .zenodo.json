@@ -1,0 +1,21 @@
+{
+  "title": "EESP: code and results for \"Ensemble Exhaustive-Subsample Partitioning: What Subsample Ensembles Estimate in Clusterwise Least Squares, and When They Are Worth Using\"",
+  "upload_type": "software",
+  "description": "<p>Code and raw results for S. Orujov, <em>Ensemble Exhaustive-Subsample Partitioning: What Subsample Ensembles Estimate in Clusterwise Least Squares, and When They Are Worth Using</em> (2026).</p><p>The archive contains the Python implementation of EESP (exact branch-and-bound micro-solves, alignment, vote, averaging and selection), the adaptively trimmed variant, the competitors (multistart hard alternation, emEM, trimmed alternation with reweighting), the exact K=2 clusterwise-regression oracle, the experiment scripts, the cluster chunk runner, unit tests, and the raw result files behind every table and figure. Running make_outputs.py regenerates all tables and figures from the stored results; every experiment unit is seeded, so rerunning the experiments reproduces the results exactly (timings excepted).</p><p>The tone, NO and CO2 data sets are those of the R package mixtools and are not redistributed; US GNP and the NBER recession indicator are from FRED.</p>",
+  "creators": [
+    {
+      "name": "Orujov, Samir",
+      "affiliation": "ADA University; Information Communication Technologies Agency"
+    }
+  ],
+  "license": "MIT",
+  "version": "3.0",
+  "language": "eng",
+  "keywords": [
+    "clusterwise regression",
+    "mixture of regressions",
+    "ensemble clustering",
+    "subsampling",
+    "robust clustering"
+  ]
+}
