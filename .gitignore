@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+results_v3/tables/
+results_v3/figures/
