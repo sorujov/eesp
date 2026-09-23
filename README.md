@@ -2,12 +2,12 @@
 
 Code and raw results for
 
-> S. Orujov, *Ensemble Exhaustive-Subsample Partitioning: What Subsample Ensembles Estimate in
-> Clusterwise Least Squares, and When They Are Worth Using* (2026).
+> S. Orujov, *Ensembles of Exactly Solved Subsamples for Clusterwise Regression:
+> Trimming Without a Trimming Level* (2026).
 
 Repository: https://github.com/sorujov/eesp. Each release is archived on Zenodo.
 
-Every table and figure in the paper and its Supplementary Material can be regenerated from the
+Every table and figure in the paper, appendices included, can be regenerated from the
 files here, either from the stored results (a few seconds) or by rerunning the experiments.
 
 ## Contents
