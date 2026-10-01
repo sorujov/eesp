@@ -1,0 +1,21 @@
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{$\varepsilon\le0.20$ (89 cells)} & \multicolumn{3}{c}{$\varepsilon\ge0.25$ (34 cells)} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method & Mean & Below $0.85$ & Worst & Mean & Below $0.85$ & Worst \\
+\midrule
+ESF & 0.914 & 2 & 0.78 & 0.820 & 13 & 0.53 \\
+ESF, $m=12$ in every design & 0.912 & 2 & 0.75 & 0.813 & 13 & 0.53 \\
+TCLUST-REG, $\alpha=0.25$, rw, recovery & 0.917 & 1 & 0.83 & 0.693 & 26 & 0.51 \\
+TCLUST-REG, $\alpha=0.40$, rw, recovery & 0.909 & 4 & 0.81 & 0.863 & 8 & 0.53 \\
+Better of the two levels, chosen afterwards & 0.918 & 0 & 0.87 & 0.865 & 7 & 0.53 \\
+Worse of the two levels & 0.908 & 5 & 0.81 & 0.691 & 27 & 0.51 \\
+TCLUST-REG, $\alpha=0.25$, rw, no recovery & 0.890 & 11 & 0.60 & 0.695 & 26 & 0.51 \\
+TCLUST-REG, $\alpha=0.40$, rw, no recovery & 0.827 & 31 & 0.56 & 0.869 & 7 & 0.54 \\
+\addlinespace
+TCLUST-REG, $\alpha=0.30$, rw, recovery & 0.915 & 0 & 0.87 & 0.794 & 17 & 0.53 \\
+TCLUST-REG, $\alpha=0.35$, rw, recovery & 0.912 & 4 & 0.83 & 0.851 & 10 & 0.53 \\
+TCLUST-REG, $\alpha=0.25$, equal weights, rw, recovery & 0.919 & 0 & 0.86 & 0.769 & 24 & 0.53 \\
+TCLUST-REG, $\alpha=0.40$, equal weights, rw, recovery & 0.907 & 4 & 0.79 & 0.856 & 10 & 0.54 \\
+\bottomrule
+\end{tabular}

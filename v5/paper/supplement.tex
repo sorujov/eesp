@@ -1,0 +1,129 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,graphicx,longtable}
+\usepackage{amsthm,enumitem,xr}
+\usepackage[round,authoryear]{natbib}
+\usepackage[hidelinks]{hyperref}
+\externaldocument{eesp_cor}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{assumption}{Assumption}
+\renewcommand{\thetheorem}{S\arabic{theorem}}
+\renewcommand{\theproposition}{S\arabic{proposition}}
+\renewcommand{\thelemma}{S\arabic{lemma}}
+\renewcommand{\theassumption}{S\arabic{assumption}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\Pr}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\Dn}{\mathcal{D}_n}
+\newcommand{\appref}[1]{\ref{#1}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\title{Supplement to ``Group recovery after trimming, and level-free flagging,\\ in robust clusterwise regression''}
+\author{Samir Orujov}
+\date{}
+\begin{document}
+\maketitle
+
+\section*{S0 Contents}
+
+Throughout, \emph{ESF} is the exact-subsample flagging procedure of Algorithm~1 of the paper,
+followed by the recovery step of Algorithm~2 unless ``ESF alone'' is written; ``reweighted''
+or ``rw'' is the reweighting rule of the paper (Section~3 of the paper, applied twice,
+$c=2.5$, a median absolute deviation per group); TCLUST-REG$^{\ast}$ denotes TCLUST-REG with
+$5\%$ second trimming in the covariates. The analysis plans, the code, the raw results and the
+exact job scripts are in the repository \url{https://github.com/sorujov/eesp}.
+
+\begin{center}\small
+\begin{tabular}{lp{11.5cm}}
+\toprule
+Section & Contents \\
+\midrule
+S1 & Software and settings of the competitors \\
+S2 & Proofs of the results of Section~3 of the paper: the precise form of Proposition~1 and the vote within one stage (S2.0, S2.1), Theorems~S1 and~S2, the precise form of Proposition~2 and its scope (S2.2), the precise form of Proposition~3 and the local peak test (S2.3) \\
+S3 & Tables S1 to S29: the comparison of Plan~1 cell by cell for ESF alone (S1); the vote weight $\lambda$ (S2); the cut-off $c$ and the covariate quantile (S3); every method in every design and at every fraction of outliers, with Monte Carlo standard errors (S4 to S11); the subsample size $m$ (S12); the loss cap $c_{\mathrm b}$ (S13); ablation of the exact fit (S14); a single $m=12$ (S15); composition of the flagged set (S16); the recovery step after TCLUST-REG (S17); choice of $K$ (S18); coefficient error (S19); flagged fraction of the methods that estimate it (S20); mixtures with more starts (S21); cost of the branch and bound (S22); sensitivity of the recovery step (S23); the best-of-five rule (S24); the third part cell by cell (S25); solvers at further sizes (S26); mixtures started from least squares (S27); small-group designs with $m=12$ (S28); $B=500$ (S29) \\
+S4 & Exact solvers for the subsample problem, with Table S30 \\
+S5 & Further tables of Section~4 of the paper: mean flagged fraction (S31), computing times (S32), Plan~5 (S33); detail of Sections~4 and~5 of the paper (S5.1); analysis plans and digests (S34); tone perception data (S35); confirmation of the recovery step under Plan~3 (S36); worst-case summaries with the settings first planned (S37, S38); further competitors and checks (S39); long-search TCLUST-REG cell by cell (S40); the fresh data of Plan~4 (S41) \\
+S6 & Other settings of TCLUST-REG (S6.1), further competitors and checks (S6.2), the loss cap, repeated runs and the best-of-five rule (S6.3), the third part of the study in detail (S6.4), and, in S6.5, the fishery figure (Figure S1), the fishery and taxi tables (S42, S43) and the table of constants (S44); the adjusted Rand index on all units (S45); the recovery step after the trimmed cluster-weighted model (S46); the analysis plans (S47); the noise range of the recovery step (S48); TCLUST-REG's own assignment (S49); the deciding cells with $200$ data sets (S50) \\
+S7 & Implementation of ESF: the exact subsample fit, alignment and vote, concentration steps, software \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Tables~S4--S11 give, for every design, the mean accuracy on clean units of every method at every
+fraction of outliers, with Monte Carlo standard errors. Columns $0.00$--$0.20$ come from the
+first part of the study ($50$ data sets per cell), columns $0.25$--$0.35$ from the second part
+($100$ data sets per cell, new data); the column ``$0.30$ (part 1)'' repeats $\varepsilon=0.30$ from
+the first part, which lay outside the criteria of Plan~1. The Laplace, contaminated normal and
+noise-component mixtures, added after Plan~1, appear in Tables~S4--S11 but not in Table~S1.
+``Trimmed alternation'' is a simple trimmed least-squares alternation with the reweighting step,
+given the computing time of ESF alone without the covariate screen; it is reported for
+completeness only. A failed fit counts as accuracy $0$; CTLE failed on $63$ of the $2{,}000$ data
+sets of the first part and $154$ of the $2{,}400$ of the second; TLE failed in $16$ and $22$ fits
+over all its levels, and the bisquare mixture in $8$ and $2$.
+
+\paragraph{Analysis plans.} Each plan was written as a plain-text file before the data it
+concerns were analysed (Plans~1 and 2) or generated (Plans~3 to 5), and served to fix the
+comparison and its thresholds before the run: Plan~1 for the first part, Plan~2 for the
+second, Plans~3 and~4 for the recovery step, on the stored fits and on $600$ fresh data sets,
+and Plan~5 for three designs outside the Gaussian family; the third part is descriptive
+(Table~\ref{tab:plans}). Table~\ref{tab:prereg} gives the SHA-256 digest
+of each file as frozen;
+the files in the repository reproduce these digests. The file of Plan~5 carries one line added
+after freezing, which records that the code differs from that of Plan~4 only by an optional
+argument not used by the plan; the digest is that of the file without this line. Plans~3 to 5
+also record the digests of the code they fix. The plans document what was fixed when; the main
+rival pipeline of the paper (long-search TCLUST-REG with reweighting and the recovery step),
+the three mixtures and sequential RANSAC, the best-of-five rule and the guard in the scoring
+scale were decided after all of them.
+
+
+\input{sections/supp_software}
+\input{sections/supp_proofs}
+\clearpage
+\section*{S3 Tables}
+\input{tables/supp_S1}
+\input{tables/supp_S2}
+\input{tables/supp_S3}
+\clearpage
+\input{tables/supp_full}
+\clearpage
+\input{tables/supp_S12}
+\input{tables/supp_S13}
+\input{tables/supp_S14}
+\input{tables/supp_S15}
+\input{tables/supp_S16}
+\input{tables/supp_S17}
+\input{tables/supp_S18}
+\input{tables/supp_S19}
+\input{tables/supp_S20}
+\input{tables/supp_S21}
+\input{tables/supp_S22}
+\IfFileExists{tables/supp_S23.tex}{\input{tables/supp_S23}}{}
+\IfFileExists{tables/supp_S24.tex}{\input{tables/supp_S24}}{}
+\input{tables/further}
+\IfFileExists{tables/supp_S26.tex}{\input{tables/supp_S26}}{}
+\input{tables/supp_S27}
+\input{tables/supp_S28}
+\input{tables/supp_S29}
+\clearpage
+\input{sections/supp_solvers}
+\input{sections/supp_moved}
+\input{tables/supp_prereg}
+\input{tables/supp_tone_wrap}
+\input{tables/supp_gate2_wrap}
+\input{tables/worst_low}
+\input{tables/worst_high}
+\input{tables/supp_r9_wrap}
+\input{tables/supp_S40}
+\input{tables/supp_plan4_wrap}
+\input{sections/supp_r10_moved}
+\input{sections/supp_implementation}
+\input{tables/supp_matlab_wrap}
+\input{sections/references}
+\end{document}

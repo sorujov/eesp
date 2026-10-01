@@ -1,0 +1,88 @@
+\section{Discussion}
+\label{sec:discussion}
+
+The recovery step asks whether the units a robust fit has discarded hide a group, by the
+likelihood of Gaussian groups plus uniform noise, and it can follow any method that flags
+units.
+After TCLUST-REG at a generous level with reweighting it returned the groups of $15\%$ to $30\%$
+that the level had trimmed away, and it reduced the cells with a mean accuracy below $0.85$, up
+to $20\%$ of outliers, from $31$ of $89$ to four; the four that remain have three or four
+groups, where the level discards part of several groups at once, and the step left them at
+$0.83$ and $0.81$. After the trimmed cluster-weighted model it did the same.
+No fixed level of TCLUST-REG between $0.25$ and $0.40$, with or without equal weights, was
+the best choice on both sides of $20\%$ of outliers; the level $0.35$ came closest, and was
+within $0.03$ of ESF in $83$ of the $89$ cells up to $20\%$ but lost $0.11$ to $0.13$ with four groups. ESF, the flagging procedure without a trimming level, is
+the option when that knowledge is missing and the contamination is probably below a quarter.
+On the three data sets ESF reached, without a level, the answers that TCLUST-REG gives at the
+right level.
+
+The step settles whether a poorly fitted set of units is contamination or a group, by the
+likelihood of the model that the flagging rule already assumes, one candidate at a time and at
+the given $K$; where the number of groups is in doubt, a scan over the number of
+groups (Section~\ref{sec:recovery}) is the better tool. After a generous level the
+step accepted narrow bands of uniform noise as a group at $30\%$ and $35\%$ of outliers, so it
+should not follow such a level when a large fraction of uniform noise is possible.
+
+The flagged fraction $\hat\alpha$ is the quantity a user of a level-free method reads first,
+and it is a contamination estimate only under near-Gaussian errors. Proposition~\ref{thm:step}
+says what it estimates then, the contamination plus about $1.2\%$ of clean units, and on the
+simulated data with Gaussian errors it lay within about three percentage points of
+$\varepsilon$ wherever ESF worked. On the tone data ESF flagged $0.25$ to $0.27$ of a benchmark
+that is treated as clean, and on the taxi data $0.23$ against a contamination of $9.6\%$,
+because the errors are far from Gaussian in both (Section~\ref{sec:realdata}); the fitted
+lines were right in both cases. A flagged fraction well above any plausible contamination
+therefore says that the errors are not Gaussian, and one well below it says that the fit has
+broken down (Section~\ref{sec:constants}).
+
+Set ESF against TCLUST-REG at level $0.30$ with reweighting and the recovery step. Up to
+$20\%$ of outliers the two have the same mean accuracy over
+the $89$ cells, $0.914$ against $0.915$, and the fixed level has no cell below $0.85$ where ESF
+has two, at $0.78$ and $0.83$ (Table~\ref{tab:level}). ESF gives three things. It needs no
+level, and the level $0.30$ is a choice that pays only because the contamination in those
+cells is below it: beyond $25\%$ the same level falls below $0.85$ in $17$ of $34$ cells,
+ESF in $13$. With four groups it is more accurate, $0.95$ against $0.88$
+(Table~\ref{tab:mainlow}), because the trimming level discards part of several groups at once
+and the estimated group weights make this worse; the level $0.25$ with equal weights removes
+that loss ($0.96$) but not the loss beyond $25\%$. It costs three things: a subsample size $m$,
+which encodes a bound on the smallest group proportion or, at $m=12$, gives up a little
+accuracy (Section~\ref{sec:constants}); the cap of $n/3$ on the flagged set, which stops the
+recovery step where the fit is in doubt and so limits the recovery of small groups to about
+$20\%$ of outliers; and a dependence on the seed that the fit of TCLUST-REG with $1000$ starts does
+not show, which the best-of-five rule reduces at five times the cost.
+
+The choice among the methods of the study is as follows. If the contamination is known to be
+below a fifth, TCLUST-REG at level $0.25$ with equal weights, reweighting and the recovery step
+was the most accurate pipeline, with ESF within $0.03$ of it in $85$ of $89$ cells. If it may exceed a
+quarter, use a level of $0.35$ or $0.40$ with reweighting, followed by the recovery step unless the
+outliers may be spread uniformly. If nothing is known about it, ESF with the recovery step
+needs no level and is accurate up to about a fifth, and a flagged fraction well below the
+plausible contamination warns that it has broken down. With two groups and outliers in the response only, the Laplace
+mixture was about as accurate as ESF up to $20\%$ of outliers and more robust beyond, but it
+fails with three or four groups, with high-leverage points and with clustered outliers.
+
+Five limits should be kept in mind. ESF breaks down when outliers are so frequent that clean
+subsamples are rare in the first stages and a contaminated fit is taken for the reference; in
+our designs this happened from $25\%$ of outliers with uniform background noise or
+high-leverage points and from $30\%$ with three groups, while with two groups of equal size,
+or with three covariates, it held up to $35\%$. Small groups are recovered only up to about
+$20\%$ of outliers, and not on every data set at $20\%$ (Section~\ref{sec:gate2}). Outliers concentrated in a tight cloud
+were fitted as part of a group from $20\%$ on; the recovery step repaired about two fifths of
+these fits. If the error spread grows with the covariate, units with large covariate values
+are flagged: with a spread growing fourfold over the design range the flagged fraction
+exceeded the contamination by up to $6$ points (Plan~5), and in raw trade data the spread
+grows much faster, so a transformation that stabilises it, such as the logarithm of
+Section~\ref{sec:realdata}, should precede the fit. The candidate search of the recovery step, a line through $d$ random units among $500$
+draws, is itself unstable when the group to be recovered is a small part of the flagged set:
+on the fishery data, after TCLUST-REG at level $0.40$ with reweighting, the step found the
+cheap group from three of ten starts (Section~\ref{sec:fishery}), so the step can miss a
+group that it would accept. Its noise range is set by the most extreme units, so that
+outliers far out make bands of noise easier to accept as groups (Section~\ref{sec:gate2}).
+A result for the whole procedure would need to control which units are flagged, and we do
+not have one (Section~\ref{sec:theory}).
+
+The number of groups $K$ was taken as known. The Bayesian information criterion of the
+Gaussian-lines-plus-noise model over several values of $K$ gives a way to choose it: in a
+descriptive check (Supplement, Table~S18) it chose the true $K$ for at least $90\%$ of the
+data sets with two or four groups and up to $20\%$ of outliers, but for only $50\%$ to $80\%$
+with the three overlapping groups of D2, and it counted a tight cloud of outliers as a group;
+on the fishery data it prefers $K=2$ to $K=1$ and $K=3$.

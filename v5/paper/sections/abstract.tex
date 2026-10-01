@@ -1,0 +1,20 @@
+\begin{abstract}
+Trimming methods for robust clusterwise linear regression discard a fixed fraction of the data,
+rarely known, and their answer depends on it. We propose a procedure that needs no such
+fraction and reports the fraction of units that its fitted groups do not explain. It solves the
+clusterwise least-squares problem exactly on many small random subsamples, flags the units far from the best fit, and excludes them from later subsamples. A
+second step asks whether the flagged units are contamination or a missed group, by the likelihood
+of Gaussian groups plus uniform noise. Partial theoretical results describe three of its steps. In
+a simulation study on $7{,}750$ data sets, with its main comparisons fixed in advance,
+the procedure was never more than $0.02$ below the most accurate competitor in seven
+designs with up to $20\%$ of outliers, while every fixed trimming level failed in some design; with
+four groups and outliers it was clearly the most accurate method. The second step recovered groups
+of $15\%$ and $20\%$ that the first step took for contamination, although on fresh data with a small
+group and $20\%$ of outliers the procedure fell up to $0.12$ below the best competitor. On airport
+taxi fares with known tariffs it found both tariffs in each of twenty samples. It breaks down from
+$25\%$ to $30\%$ of outliers with uniform noise, high-leverage points or three groups; with three
+groups or uniform noise, a generous trimming level followed by its second step is then more robust.
+\end{abstract}
+
+\noindent\textbf{Keywords:} clusterwise regression; robust clustering; trimming; outliers;
+subsampling; branch and bound; mixture of regressions.

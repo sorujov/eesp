@@ -1,0 +1,18 @@
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{$\varepsilon\le0.20$ (89 cells)} & \multicolumn{3}{c}{$\varepsilon\ge0.25$ (34 cells)} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method & Mean & Below $0.85$ & Worst & Mean & Below $0.85$ & Worst \\
+\midrule
+ESF, range $R$ as in the paper & 0.914 & 2 & 0.78 & 0.820 & 13 & 0.53 \\
+ESF, range $2R$ & 0.912 & 2 & 0.69 & 0.812 & 15 & 0.53 \\
+ESF, range $5R$ & 0.910 & 3 & 0.68 & 0.799 & 16 & 0.53 \\
+ESF, range $20$ median scales & 0.891 & 12 & 0.62 & 0.819 & 13 & 0.53 \\
+ESF, unflagged range plus $10$ median scales & 0.903 & 9 & 0.70 & 0.817 & 13 & 0.53 \\
+TCLUST-REG $0.40$, rw, recovery, range $R$ & 0.909 & 4 & 0.81 & 0.863 & 8 & 0.53 \\
+TCLUST-REG $0.40$, rw, recovery, range $2R$ & 0.908 & 5 & 0.81 & 0.846 & 10 & 0.54 \\
+TCLUST-REG $0.40$, rw, recovery, range $5R$ & 0.906 & 7 & 0.75 & 0.830 & 12 & 0.54 \\
+TCLUST-REG $0.40$, rw, recovery, $20$ median scales & 0.883 & 15 & 0.61 & 0.859 & 9 & 0.54 \\
+TCLUST-REG $0.40$, rw, recovery, unflagged range plus $10$ scales & 0.899 & 10 & 0.73 & 0.853 & 9 & 0.54 \\
+\bottomrule
+\end{tabular}

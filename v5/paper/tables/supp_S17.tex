@@ -1,0 +1,35 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{The recovery step applied after TCLUST-REG at levels $0.25$ and $0.40$ ($300$ starts, $10$ refinement steps; the long search is in Table~S40) with reweighting: mean accuracy on clean units without and with the recovery step, in the designs where it changes the mean by more than $0.01$.}
+\label{tab:S17}
+\begin{tabular}{llcccc}
+\toprule
+ & & \multicolumn{2}{c}{$\alpha=0.25$} & \multicolumn{2}{c}{$\alpha=0.40$} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Design & $\varepsilon$ & without & with & without & with \\
+\midrule
+D3 & 0.00 & 0.888 & 0.911 & 0.666 & 0.910 \\
+D3 & 0.05 & 0.912 & 0.912 & 0.708 & 0.912 \\
+D3 & 0.10 & 0.907 & 0.907 & 0.762 & 0.907 \\
+D3 & 0.20 & 0.915 & 0.915 & 0.868 & 0.910 \\
+D5 & 0.30 & 0.535 & 0.533 & 0.623 & 0.610 \\
+D6 & 0.30 & 0.891 & 0.857 & 0.908 & 0.876 \\
+D6 & 0.35 & 0.778 & 0.699 & 0.898 & 0.740 \\
+D3, $n=1000$ & 0.00 & 0.913 & 0.913 & 0.630 & 0.911 \\
+D3, $n=1000$ & 0.10 & 0.911 & 0.911 & 0.810 & 0.910 \\
+four groups & 0.00 & 0.827 & 0.847 & 0.746 & 0.766 \\
+D3, moderate & 0.05 & 0.907 & 0.911 & 0.717 & 0.911 \\
+D3, moderate & 0.10 & 0.911 & 0.911 & 0.667 & 0.906 \\
+D3, moderate & 0.20 & 0.906 & 0.906 & 0.850 & 0.888 \\
+groups 80/20 & 0.00 & 0.634 & 0.910 & 0.583 & 0.910 \\
+groups 80/20 & 0.10 & 0.880 & 0.910 & 0.602 & 0.910 \\
+groups 80/20 & 0.20 & 0.914 & 0.914 & 0.699 & 0.903 \\
+groups 85/15 & 0.00 & 0.596 & 0.903 & 0.566 & 0.910 \\
+groups 85/15 & 0.10 & 0.731 & 0.909 & 0.578 & 0.904 \\
+groups 85/15 & 0.20 & 0.901 & 0.901 & 0.670 & 0.879 \\
+groups 85/15 & 0.30 & 0.852 & 0.852 & 0.813 & 0.824 \\
+clustered outliers & 0.30 & 0.545 & 0.585 & 0.676 & 0.703 \\
+\bottomrule
+\end{tabular}
+\end{table}

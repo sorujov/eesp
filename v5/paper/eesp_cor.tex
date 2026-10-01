@@ -1,0 +1,61 @@
+\documentclass[preprint,12pt,authoryear]{elsarticle}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{assumption}{Assumption}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\Pr}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\Dn}{\mathcal{D}_n}
+\newcommand{\appref}[1]{\ref{#1}}
+\newcommand{\TBD}[1]{\textbf{[TBD: #1]}}
+\providecommand{\bmhead}[1]{\paragraph{#1}}
+\setlength{\emergencystretch}{3em}
+
+\journal{Computational Statistics}
+
+\makeatletter\def\els@aparagraph[#1]#2{\elsparagraph[#1]{#2}}\def\els@bparagraph#1{\elsparagraph*{#1}}\makeatother
+\begin{document}
+\begin{frontmatter}
+\title{Group recovery after trimming, and level-free flagging, in robust clusterwise
+regression}
+\author{Samir Orujov\corref{cor1}}
+\ead{sorujov@ada.edu.az}
+\cortext[cor1]{Corresponding author. ORCID 0009-0004-9708-2109.}
+\affiliation{organization={School of Business, ADA University},
+  addressline={61 Ahmadbay Aghaoglu Street}, city={Baku}, postcode={AZ1008}, country={Azerbaijan}}
+
+\input{sections/abstract_body}
+
+\begin{keyword}
+clusterwise regression \sep robust clustering \sep trimming \sep reweighting \sep outliers
+\sep branch and bound
+\end{keyword}
+\end{frontmatter}
+
+\input{sections/introduction}
+\input{sections/method}
+\input{sections/theory}
+\input{sections/simulation}
+\input{sections/realdata}
+\input{sections/discussion}
+
+\section*{Declarations}
+\input{sections/declarations}
+
+\input{sections/references}
+
+\end{document}

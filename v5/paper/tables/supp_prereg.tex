@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Analysis plans and the SHA-256 digests of their files (first $16$ hexadecimal digits;
+the files and the full digests are in the repository). The digest of Plan~5 is that of its file
+without the last line, a note on an unused optional argument added after the plan was hashed.}
+\label{tab:prereg}
+\begin{tabular}{llll}
+\toprule
+Plan & Written before & Concerns & SHA-256 \\
+\midrule
+1 & any run of the study & first part & \texttt{b87770ca12fbc8e1} \\
+2 & the second part was run & second part & \texttt{5e37bad8706336c6} \\
+3 & the recovery step was applied to the stored fits & the recovery step & \texttt{7b7ce8b0f8aa67fd} \\
+4 & the fresh data were generated & fresh data & \texttt{a98284b7dfc2b6e9} \\
+5 & the new designs were run & new designs & \texttt{8e9255c2a28a3548} \\
+\bottomrule
+\end{tabular}
+\end{table}

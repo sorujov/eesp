@@ -1,0 +1,31 @@
+\begin{table}[!tb]
+\centering
+\footnotesize
+\caption{Worst mean accuracy on clean units (the lowest of the cell means) with up to $20\%$ of outliers ($\varepsilon\in\{0,0.05,0.10,0.20\}$), by design. D1 to D8: first part ($50$ data sets per cell). $K=4$, small groups (80/20 and 85/15, including the fresh data of Plan~4), clustered outliers and other designs (sample size, moderate outliers, dependent covariates, $t_3$, skewed and heteroscedastic errors): third part and Plans~4 and~5. Column entries are minima over different sets of $\varepsilon$: D1 to D8 over the four values above, the other columns over the values of $\varepsilon\le0.20$ run in the third part and Plans~4 and~5. TCLUST-REG was run with $1000$ random starts and $50$ refinement steps (the rows with the level $0.30$ and with equal weights were run after the others); ``reweighted'' is our two-pass rule ($c=2.5$, median absolute deviation per group). Sequential RANSAC is given the true noise scale and is an oracle benchmark, not a competitor that can be run on data. CTLE and the mixtures were run with the starts of Supplement Section~S1. In D5, TCLUST-REG at level $0.25$ with $5\%$ second-level trimming in the covariates and reweighting ($300$ starts) reaches $0.86$ (Supplement, Table~S37). Values below $0.85$ in italics.}
+\label{tab:mainlow}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+Method & D1 & D2 & D3 & D4 & D6 & D7 & D8 & D5 & $K=4$ & Small & Clust. & Other \\
+\midrule
+ESF (with the recovery step) & 0.91 & 0.89 & 0.90 & 0.90 & 0.89 & 0.91 & 1.00 & 0.85 & 0.95 & \textit{0.83} & \textit{0.78} & 0.90 \\
+ESF with $m=12$ in every design & 0.91 & 0.90 & 0.89 & 0.90 & 0.89 & 0.91 & 1.00 & 0.86 & 0.88 & \textit{0.83} & \textit{0.75} & 0.90 \\
+ESF alone & 0.91 & 0.89 & 0.89 & 0.90 & 0.90 & 0.91 & 1.00 & 0.85 & 0.95 & \textit{0.60} & \textit{0.70} & 0.88 \\
+\addlinespace
+TCLUST-REG, $\alpha=0.25$, reweighted, then the recovery step & 0.91 & 0.89 & 0.91 & 0.90 & 0.91 & 0.91 & 1.00 & \textit{0.83} & 0.91 & 0.90 & 0.90 & 0.91 \\
+TCLUST-REG, $\alpha=0.40$, reweighted, then the recovery step & 0.91 & \textit{0.83} & 0.91 & 0.90 & 0.91 & 0.91 & 1.00 & 0.87 & \textit{0.81} & 0.85 & 0.91 & 0.89 \\
+TCLUST-REG, $\alpha=0.30$, reweighted, then the recovery step & 0.91 & 0.87 & 0.91 & 0.90 & 0.91 & 0.91 & 1.00 & 0.87 & 0.88 & 0.89 & 0.91 & 0.90 \\
+TCLUST-REG, $\alpha=0.25$, equal weights, reweighted, then the recovery step & 0.91 & 0.90 & 0.91 & 0.90 & 0.91 & 0.91 & 1.00 & 0.86 & 0.96 & 0.89 & 0.90 & 0.90 \\
+TCLUST-REG, $\alpha=0.25$, reweighted & 0.91 & 0.89 & 0.89 & 0.90 & 0.91 & 0.91 & 1.00 & \textit{0.83} & 0.91 & \textit{0.60} & 0.90 & 0.88 \\
+TCLUST-REG, $\alpha=0.40$, reweighted & 0.91 & \textit{0.83} & \textit{0.66} & 0.90 & 0.91 & 0.91 & 1.00 & 0.87 & \textit{0.81} & \textit{0.56} & 0.91 & \textit{0.60} \\
+\addlinespace
+CTLE & 0.91 & \textit{0.59} & 0.87 & 0.85 & 0.87 & 0.89 & \textit{0.72} & \textit{0.73} & \textit{0.55} & \textit{0.64} & 0.86 & \textit{0.81} \\
+Bisquare mixture & 0.89 & \textit{0.56} & 0.88 & 0.90 & 0.90 & 0.90 & \textit{0.80} & \textit{0.55} & \textit{0.47} & \textit{0.81} & \textit{0.57} & 0.85 \\
+Laplace mixture & 0.91 & \textit{0.61} & 0.91 & 0.91 & 0.91 & 0.91 & 0.96 & \textit{0.58} & \textit{0.60} & 0.88 & \textit{0.63} & 0.90 \\
+Contaminated normal mixture & 0.91 & \textit{0.52} & 0.91 & 0.91 & 0.91 & 0.91 & 1.00 & \textit{0.83} & \textit{0.65} & 0.91 & \textit{0.58} & 0.89 \\
+Noise-component mixture & 0.91 & \textit{0.75} & 0.91 & 0.90 & 0.91 & 0.90 & \textit{0.81} & \textit{0.53} & \textit{0.65} & \textit{0.64} & \textit{0.61} & 0.88 \\
+Sequential RANSAC (oracle: true noise scale given) & 0.91 & \textit{0.69} & 0.91 & 0.90 & 0.91 & 0.91 & 0.97 & \textit{0.54} & \textit{0.71} & 0.91 & \textit{0.84} & 0.90 \\
+Least squares (50 starts) & \textit{0.53} & \textit{0.37} & \textit{0.70} & \textit{0.52} & \textit{0.58} & \textit{0.53} & \textit{0.53} & \textit{0.53} & \textit{0.49} & \textit{0.80} & \textit{0.61} & \textit{0.51} \\
+\bottomrule
+\end{tabular}}
+\end{table}

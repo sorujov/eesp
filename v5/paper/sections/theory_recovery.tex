@@ -1,0 +1,42 @@
+\paragraph{The group-recovery step.}
+\label{sec:recovery-theory}
+The recovery step scores a \emph{fit} $F$, a set of lines $\theta_k$ with scales $s_k$ and
+proportions $\pi_k$ and a noise weight $\pi_0>0$ summing to one, by
+$\ell_n(F)=\sum_{i\le n}\log f_F(u_i)$, where
+$f_F(u)=\sum_{k}(\pi_k/s_k)\,\varphi\{(y-x^{\top}\theta_k)/s_k\}+\pi_0/R$. For given
+parameters, $\ell_n(F)/n$ converges almost surely to $L(F)=\E_P\log f_F(u)$; the proposition
+values, in $L$, the two operations by which a candidate differs from the original fit.
+
+\begin{proposition}[informal statement; the precise version is in Supplement~S2.3]
+\label{prop:recover-value}
+(i) Let $G$ be an event of probability $\pi_\ast$ on which $y=x^{\top}\theta_\ast+\sigma_\ast e$
+with $e\sim\mathcal N(0,1)$ independent of $x$, let $F$ have noise weight $\pi_0>\pi_\ast$, and
+let $F'$ be $F$ with the line $(\theta_\ast,\sigma_\ast,\pi_\ast)$ added and the noise weight
+lowered to $\pi_0-\pi_\ast$. Then
+\begin{equation}
+L(F')-L(F)\;\ge\;\pi_\ast\Bigl\{\log\frac{\pi_\ast R}{\pi_0}-\log\sigma_\ast
+-\tfrac12\log(2\pi e)-\xi\Bigr\}-\nu\log\frac{\pi_0}{\pi_0-\pi_\ast},
+\label{eq:recover-gain}
+\end{equation}
+where $\xi\ge0$ is small when $G$ lies a few scales from every line of $F$, and
+$\nu\le1-\pi_\ast$ is the noise mass that $F$ attributes to the units outside $G$. (ii) If $F$
+contains two lines through one group of probability $\pi_S$ and scale $\sigma_S$, at intercepts
+$\delta$ apart, and $F''$ replaces them by the line through the group, then
+$|L(F'')-L(F)|\le(\varphi(1)a^{2}+\tfrac14a^{4})\pi_S$ with $a=\delta/(2\sigma_S)$.
+\end{proposition}
+
+The leading term of \eqref{eq:recover-gain} is the value of a group: per unit, the log of
+the ratio of its peak density $\pi_\ast/\sigma_\ast$ to the noise density $\pi_0/R$, less the
+entropy $\tfrac12\log(2\pi e)\approx1.42$ of a unit normal error. With $R/\sigma_\ast=40$,
+$\pi_\ast=0.1$, $\pi_0=0.2$ and $\xi\approx0$, the value is $1.58$ nats per unit of the group,
+that is $0.158n$ in all. With these values the loss term is $\nu\log2$: for a fit whose noise
+mass off $G$ is about $0.1$, the weight $\pi_0=0.2$ less the group's $0.1$, it is about $0.069n$
+and the gain at least $0.09n$ against a margin $\tfrac{d+1}{2}\log n$ of $8.6$ for $d=2$,
+$n=300$. The bound $\nu\le1-\pi_\ast$ alone gives a loss of up to $0.62n$, which exceeds the
+value, so the inequality is informative only for such a fit. Part (ii), an idealisation with two parallel lines at intercepts $\delta$ apart, says that
+removing one of two lines through one group is nearly free, so a candidate that arises by the two operations is accepted
+for all large $n$ when the right side of \eqref{eq:recover-gain} exceeds $\varphi(1)a^{2}\pi_S$
+and its scales are admissible. The result is for fixed parameters, which the step reads off
+the data, and it does not cover the reweighting refit of the candidate. The peak test, analysed
+in Supplement~S2.3, fails a band of outliers that fills its window and passes one of half-width
+below about $3.4$ scales.

@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.DS_Store
+*.aux
+*.log
+*.out
+*.synctex.gz
+v3/results_v3/tables/
+v3/results_v3/figures/
+.env

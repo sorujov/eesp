@@ -1,0 +1,70 @@
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Further designs (third part of the study, descriptive, $50$ data sets per cell): mean accuracy on clean units of ESF, of ESF alone, of the best competitor chosen afterwards in each cell, and of TCLUST-REG with reweighting at the two conservative levels ($300$ starts); $\hat\alpha$ is the mean flagged fraction of ESF.}
+\label{tab:further}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccclcccc}
+\toprule
+Design & $\varepsilon$ & ESF & ESF alone & Best competitor & & TCR$_{0.25}$+rw & TCR$_{0.40}$+rw & $\hat\alpha$ \\
+\midrule
+D1, $n=100$ & 0.00 & 0.912 & 0.913 & Contaminated normal mixture & 0.912 & 0.910 & 0.902 & 0.024 \\
+ & 0.10 & 0.918 & 0.918 & TCLUST-REG (long search), $\alpha=0.25$, reweighted & 0.919 & 0.918 & 0.912 & 0.108 \\
+ & 0.20 & 0.908 & 0.901 & TCLUST-REG (long search), $\alpha=0.40$, reweighted, then the recovery step & 0.907 & 0.906 & 0.900 & 0.208 \\
+ & 0.30 & 0.908 & 0.908 & Contaminated normal mixture & 0.912 & 0.662 & 0.911 & 0.296 \\
+\addlinespace
+D1, $n=1000$ & 0.00 & 0.910 & 0.910 & TLE, $\alpha=0.25$ & 0.910 & 0.910 & 0.910 & 0.018 \\
+ & 0.10 & 0.911 & 0.911 & Noise-component mixture & 0.911 & 0.911 & 0.911 & 0.106 \\
+ & 0.20 & 0.911 & 0.911 & Laplace mixture & 0.912 & 0.911 & 0.911 & 0.201 \\
+ & 0.30 & 0.902 & 0.902 & TCLUST-REG (long search), $\alpha=0.40$, reweighted & 0.910 & 0.522 & 0.910 & 0.301 \\
+\addlinespace
+D3, $n=1000$ & 0.00 & 0.913 & 0.913 & Sequential RANSAC (true noise scale given) & 0.914 & 0.913 & 0.630 & 0.017 \\
+ & 0.10 & 0.911 & 0.911 & Sequential RANSAC (true noise scale given) & 0.912 & 0.911 & 0.810 & 0.104 \\
+ & 0.20 & 0.903 & 0.903 & Sequential RANSAC (true noise scale given) & 0.912 & 0.911 & 0.911 & 0.201 \\
+ & 0.30 & 0.901 & 0.901 & Sequential RANSAC (true noise scale given) & 0.915 & 0.736 & 0.913 & 0.298 \\
+\addlinespace
+four parallel lines, $n=400$ & 0.00 & 0.958 & 0.958 & TCLUST-REG, $\alpha=0.05$, reweighted & 0.964 & 0.827 & 0.746 & 0.005 \\
+ & 0.10 & 0.965 & 0.965 & TCLUST-REG (long search), $\alpha=0.25$, reweighted & 0.934 & 0.837 & 0.746 & 0.099 \\
+ & 0.20 & 0.949 & 0.949 & TCLUST-REG (long search), $\alpha=0.25$, reweighted, then the recovery step & 0.913 & 0.765 & 0.686 & 0.189 \\
+ & 0.30 & 0.724 & 0.734 & TCLUST-REG (long search), $\alpha=0.40$, reweighted & 0.761 & 0.689 & 0.658 & 0.129 \\
+\addlinespace
+D7, dependent covariates & 0.00 & 0.909 & 0.909 & Noise-component mixture & 0.910 & 0.908 & 0.909 & 0.059 \\
+ & 0.10 & 0.915 & 0.915 & Noise-component mixture & 0.917 & 0.915 & 0.914 & 0.132 \\
+ & 0.20 & 0.909 & 0.909 & CTLE & 0.908 & 0.907 & 0.907 & 0.230 \\
+ & 0.30 & 0.910 & 0.910 & TCLUST-REG (long search), $\alpha=0.40$, reweighted & 0.911 & 0.552 & 0.903 & 0.325 \\
+\addlinespace
+D1, moderate outliers & 0.05 & 0.907 & 0.907 & Sequential RANSAC (true noise scale given) & 0.908 & 0.907 & 0.907 & 0.050 \\
+ & 0.10 & 0.910 & 0.910 & TCLUST-REG, $\alpha=0.15$, reweighted & 0.911 & 0.911 & 0.910 & 0.081 \\
+ & 0.20 & 0.914 & 0.914 & TCLUST-REG, $\alpha=0.10$ & 0.916 & 0.913 & 0.913 & 0.143 \\
+ & 0.30 & 0.901 & 0.901 & TCLUST-REG, $\alpha=0.25$, reweighted & 0.910 & 0.910 & 0.910 & 0.193 \\
+\addlinespace
+D3, moderate outliers & 0.05 & 0.910 & 0.910 & TCLUST-REG, $\alpha=0.15$ & 0.912 & 0.907 & 0.717 & 0.052 \\
+ & 0.10 & 0.910 & 0.910 & Contaminated normal mixture & 0.911 & 0.911 & 0.667 & 0.077 \\
+ & 0.20 & 0.904 & 0.904 & Sequential RANSAC (true noise scale given) & 0.907 & 0.906 & 0.850 & 0.143 \\
+ & 0.30 & 0.874 & 0.874 & TCLUST-REG, $\alpha=0.25$ & 0.911 & 0.910 & 0.906 & 0.169 \\
+\addlinespace
+D1, groups of 80\% and 20\% & 0.00 & 0.910 & 0.819 & Contaminated normal mixture & 0.912 & 0.634 & 0.583 & 0.020 \\
+ & 0.10 & 0.910 & 0.836 & Sequential RANSAC (true noise scale given) & 0.911 & 0.880 & 0.602 & 0.108 \\
+ & 0.20 & 0.882 & 0.727 & Contaminated normal mixture & 0.915 & 0.914 & 0.699 & 0.203 \\
+ & 0.30 & 0.748 & 0.748 & Sequential RANSAC (true noise scale given) & 0.904 & 0.820 & 0.866 & 0.284 \\
+\addlinespace
+D1, groups of 85\% and 15\% & 0.00 & 0.909 & 0.628 & Contaminated normal mixture & 0.912 & 0.596 & 0.566 & 0.026 \\
+ & 0.10 & 0.912 & 0.605 & Sequential RANSAC (true noise scale given) & 0.916 & 0.731 & 0.578 & 0.110 \\
+ & 0.20 & 0.881 & 0.619 & TCLUST-REG (long search), $\alpha=0.25$ & 0.909 & 0.901 & 0.670 & 0.203 \\
+ & 0.30 & 0.747 & 0.732 & Sequential RANSAC (true noise scale given) & 0.891 & 0.852 & 0.813 & 0.256 \\
+\addlinespace
+D1, clustered outliers & 0.00 & 0.914 & 0.914 & Bisquare mixture & 0.914 & 0.913 & 0.913 & 0.018 \\
+ & 0.10 & 0.910 & 0.910 & Sequential RANSAC (true noise scale given) & 0.911 & 0.911 & 0.911 & 0.109 \\
+ & 0.20 & 0.781 & 0.700 & TCLUST-REG, $\alpha=0.40$, reweighted & 0.905 & 0.897 & 0.905 & 0.190 \\
+ & 0.30 & 0.550 & 0.536 & TCLUST-REG (long search), $\alpha=0.40$, reweighted, then the recovery step & 0.703 & 0.545 & 0.676 & 0.072 \\
+\addlinespace
+D1, $t_3$ errors & 0.00 & 0.927 & 0.927 & TCLUST-REG, $\alpha=0.40$ & 0.928 & 0.928 & 0.927 & 0.065 \\
+ & 0.10 & 0.934 & 0.934 & Laplace mixture & 0.936 & 0.935 & 0.935 & 0.143 \\
+ & 0.20 & 0.931 & 0.931 & TCLUST-REG, $\alpha=0.25$ & 0.932 & 0.931 & 0.931 & 0.226 \\
+\addlinespace
+D3, $t_3$ errors & 0.00 & 0.933 & 0.933 & TCLUST-REG, $\alpha=0.10$ & 0.933 & 0.933 & 0.853 & 0.064 \\
+ & 0.10 & 0.930 & 0.930 & Noise-component mixture & 0.931 & 0.930 & 0.919 & 0.144 \\
+ & 0.20 & 0.926 & 0.926 & TCLUST-REG, $\alpha=0.25$ & 0.932 & 0.931 & 0.930 & 0.221 \\
+\bottomrule
+\end{tabular}}
+\end{table}

@@ -1,0 +1,35 @@
+\begin{tabular}{lccccc}
+\toprule
+Method & Accuracy, mean & Accuracy, worst & Coefficient error & Flagged or trimmed & Time (s) \\
+\midrule
+ESF & 0.978 & 0.974 & 0.23 & 0.23 & 31 \\
+ESF alone & 0.978 & 0.974 & 0.23 & 0.23 & 24 \\
+TCLUST-REG (long search), $\alpha=0.25$, reweighted, then the recovery step & 0.979 & 0.975 & 0.10 & 0.14 & 86 \\
+TCLUST-REG (long search), $\alpha=0.40$, reweighted, then the recovery step & 0.978 & 0.973 & 0.14 & 0.14 & 54 \\
+TCLUST-REG (long search), $\alpha=0.25$, reweighted & 0.979 & 0.975 & 0.10 & 0.14 & 86 \\
+TCLUST-REG (long search), $\alpha=0.40$, reweighted & 0.978 & 0.973 & 0.14 & 0.14 & 54 \\
+TCLUST-REG, $\alpha=0.05$ & 0.972 & 0.959 & 0.98 & 0.05 & 7.30 \\
+TCLUST-REG, $\alpha=0.10$ & 0.978 & 0.975 & 0.06 & 0.10 & 5.11 \\
+TCLUST-REG, $\alpha=0.15$ & 0.978 & 0.975 & 0.09 & 0.15 & 4.35 \\
+TCLUST-REG, $\alpha=0.25$ & 0.977 & 0.967 & 0.21 & 0.25 & 4.10 \\
+TCLUST-REG, $\alpha=0.40$ & 0.975 & 0.965 & 0.48 & 0.40 & 3.02 \\
+TCLUST-REG, $\alpha=0.25$, reweighted & 0.979 & 0.975 & 0.10 & 0.14 & 4.10 \\
+TCLUST-REG, $\alpha=0.40$, reweighted & 0.978 & 0.970 & 0.13 & 0.14 & 3.02 \\
+Trimmed CWM, $\alpha=0.05$ & 0.905 & 0.592 & 1.82 & 0.05 & 12 \\
+Trimmed CWM, $\alpha=0.10$ & 0.978 & 0.975 & 0.06 & 0.10 & 12 \\
+Trimmed CWM, $\alpha=0.15$ & 0.978 & 0.974 & 0.15 & 0.15 & 12 \\
+Trimmed CWM, $\alpha=0.25$ & 0.978 & 0.970 & 0.20 & 0.25 & 11 \\
+Trimmed CWM, $\alpha=0.40$ & 0.977 & 0.967 & 0.32 & 0.40 & 12 \\
+TLE, $\alpha=0.05$ & 0.567 & 0.000 & 17.74 & 0.05 & 58 \\
+TLE, $\alpha=0.10$ & 0.098 & 0.000 & 0.12 & 0.10 & 6.77 \\
+TLE, $\alpha=0.15$ & 0.049 & 0.000 & 0.16 & 0.15 & 8.41 \\
+TLE, $\alpha=0.25$ & 0.700 & 0.000 & 64.30 & 0.25 & 61 \\
+TLE, $\alpha=0.40$ & 0.686 & 0.593 & 66.26 & 0.40 & 53 \\
+CTLE & 0.342 & 0.000 & 0.24 & 0.09 & 80 \\
+Bisquare mixture & 0.979 & 0.975 & 0.08 & 0.00 & 5.41 \\
+Laplace mixture & 0.676 & 0.534 & 65.37 & 0.00 & 1136 \\
+Contaminated normal mixture & 0.978 & 0.974 & 0.12 & 0.09 & 0.29 \\
+Noise-component mixture & 0.978 & 0.974 & 0.23 & 0.08 & 0.04 \\
+Least squares (50 starts) & 0.589 & 0.571 & 6.72 & -- & 0.07 \\
+\bottomrule
+\end{tabular}

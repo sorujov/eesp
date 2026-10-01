@@ -1,0 +1,54 @@
+\section*{S4 Exact solvers for the subsample problem}
+\label{supp:solvers}
+
+We compared four exact solvers on the same subsamples, $30$ for each design and size, drawn from
+simulated data sets with $10\%$ of outliers (Section~4.1 of the paper), each solver on one core
+and all on the problem that Algorithm~\ref{alg:adaptive} needs: \eqref{eq:lsfit} with every
+group of at least $d+1$ units. The first is the depth-first search of Section~S7, which also prunes a
+partial labelling when the units left cannot bring every group to $d+1$ units, without and with
+an incumbent from ten starts of hard alternation. The second is repetitive branch and bound: the
+unconstrained problems on the last $1,2,\dots,m-1$ units are solved in turn, and the optimal value
+of the units not yet labelled is added to the bound, which is valid because the residual sum of
+squares of a group is superadditive over disjoint sets of its units. The third is the mixed
+logical-quadratic programme of \citet{carbonneau2011globally}, with binary labels $z_{ik}$, free
+coefficients, residuals $e_i$ with $z_{ik}=1\Rightarrow e_i=y_i-x_i^{\top}\theta_k$ as indicator
+constraints, the quadratic objective $\sum_ie_i^{2}$, group sizes $\sum_iz_{ik}\ge d+1$ and the
+symmetry-breaking constraints $z_{ik}=0$ for $k>i$, solved by Gurobi~13.0 \citep{gurobi2026}.
+The fourth is the same programme with big-$M$ constraints, which need bounded coefficients
+($|\theta_{kj}|\le50$, $M_i=|y_i|+50\sum_j|x_{ij}|$), and the objective written as an epigraph
+constraint, solved by the open-source SCIP~10.0 through PySCIPOpt \citep{maher2016pyscipopt}.
+The limit was $60$ seconds for the programmes and $2\times10^{8}$ nodes, about a minute, for the
+searches. The probabilistic branch and bound of \citet{fois2026clusterwise} targets whole samples
+without outliers, and we did not run it.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Exact solution of the admissible subsample problem: median time in milliseconds over
+$30$ subsamples, and the median number of nodes of our search. A superscript counts the solves
+that reached the limit.}
+\label{tab:solvers}
+\input{tables/solvers}
+\end{table}
+
+Whenever two solvers finished, their optimal values agreed to a relative $2\times10^{-6}$, except
+that SCIP returned a larger value on $42$ of the $477$ subsamples it solved: there the optimum has a group fitted by a line
+with a coefficient beyond $\pm50$, which the bound of the big-$M$ programme excludes.
+Table~\ref{tab:solvers} gives the times. At the sizes that ESF uses, $m\le20$, the
+depth-first search was $30$ to $180$ times faster than Gurobi and $700$ to $4{,}700$ times faster
+than SCIP; the SCIP programme differs in its big-$M$ form and epigraph objective, so this factor
+reflects the formulation as well as the solver. The advantage shrinks as $m$ grows, because the search is exponential in $m$ while the
+programme's relaxations prune better on larger problems: with two groups, Gurobi was $16$ times
+slower at $m=28$, $2.5$ times slower at $m=32$, and faster from $m=40$, where the search reached
+its node limit on $5$ of $30$ subsamples. An incumbent from alternation pays from $m=24$ with two groups and from $m=16$ with four, and the
+repetitive bound made the search two to four times slower at every size: solving the nested
+subproblems costs more than the bound prunes. With about $110$ solves per data set, a mixed-integer
+solver would turn the milliseconds of Algorithm~\ref{alg:adaptive} into seconds or minutes. Table~\ref{tab:S26} extends the comparison. With four covariates the
+search was $30$ to $33$ times faster than Gurobi; with five groups and $m=20$ it took a median of
+$0.19$ seconds, while Gurobi reached its time limit on $25$ of $30$ subsamples; and starting each
+nested problem of the repetitive scheme from the optimum of the next smaller one, as
+\citet{brusco2006repetitive} does, made it faster at the larger sizes but never as fast as the
+plain search. The
+subsample size of Algorithm~\ref{alg:adaptive} thus lies where the simple search is the right
+tool, and a larger $m$, which Section~2.5 of the paper shows does not help, would call for a
+mixed-integer solver.

@@ -1,0 +1,15 @@
+\begin{tabular}{llcccccc}
+\toprule
+Design & $\varepsilon$ & ESF alone & ESF & Best competitor & Difference (s.e.) & Flagged, residual & Flagged, covariates \\
+\midrule
+skewed errors & 0.00 & 0.923 & 0.923 & TCLUST-REG (0.15): 0.923 & -0.001 (0.001) & 0.052 & 0.000 \\
+skewed errors & 0.10 & 0.917 & 0.917 & noise comp.: 0.918 & -0.001 (0.001) & 0.131 & 0.000 \\
+skewed errors & 0.20 & 0.923 & 0.923 & TLE(0.25): 0.924 & -0.001 (0.001) & 0.211 & 0.000 \\
+70/30, three covariates & 0.00 & 0.908 & 0.908 & bisquare: 0.911 & -0.003 (0.001) & 0.020 & 0.007 \\
+70/30, three covariates & 0.10 & 0.884 & 0.906 & TCLUST-REG (0.15): 0.910 & -0.004 (0.001) & 0.109 & 0.005 \\
+70/30, three covariates & 0.20 & 0.883 & 0.903 & TCLUST-REG (0.25): 0.909 & -0.006 (0.005) & 0.204 & 0.005 \\
+scale growing with $|x|$ & 0.00 & 0.913 & 0.913 & TCLUST-REG (0.05): 0.914 & -0.001 (0.001) & 0.059 & 0.000 \\
+scale growing with $|x|$ & 0.10 & 0.913 & 0.913 & contam. normal: 0.915 & -0.002 (0.001) & 0.130 & 0.000 \\
+scale growing with $|x|$ & 0.20 & 0.909 & 0.909 & TLE(0.25): 0.910 & -0.001 (0.001) & 0.213 & 0.000 \\
+\bottomrule
+\end{tabular}

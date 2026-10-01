@@ -1,0 +1,42 @@
+\appendix
+
+\section{Implementation}
+\label{app:implementation}
+
+\paragraph{Exact subsample fits.}
+Label vectors are enumerated depth first in restricted-growth form: unit $j$ may receive any
+label already used by units $1,\dots,j-1$ or the smallest unused one. This lists each
+partition into at most $K$ groups exactly once and removes the $K!$ relabellings. Each group
+keeps its sufficient statistics $(n_k,X_k^{\top}X_k,X_k^{\top}y_k,y_k^{\top}y_k)$, updated in
+$O(d^{2})$ when a unit enters or leaves, and its residual sum of squares, recomputed by a
+Cholesky solve of size $d$. For rank-deficient groups the minimum-norm solution is used; its
+residual sum of squares is the minimum over all coefficient vectors, so the group criterion is
+exact in every case. A group's residual sum of squares cannot decrease when a unit is added,
+so the sum over groups at a partial labelling is a lower bound for every completion, and a
+branch is abandoned when the bound reaches the best value found. The cost of the search is reported in Section~\ref{sec:solvers} and Supplement Table~S30.
+
+The code was
+checked against plain enumeration of all $K^{m}$ label vectors, with residual sums of squares
+computed independently by a least-squares routine, on $200$ instances with
+$(K,d,m)\in\{(2,1,10),(2,2,10),(3,2,8),(2,3,9)\}$, a third of them with tied covariates.
+
+\paragraph{Alignment and vote.}
+Replicates are aligned before voting by solving an assignment problem between their coefficients
+and those of a common reference, by enumerating the $K!$ relabellings for $K\le6$, which covers
+every experiment here (the Hungarian method \citep{kuhn1955hungarian} is used beyond). The
+reference is a pilot replicate, the best of ten preliminary replicates by the median of the
+squared residuals; it serves only for alignment and does not vote. After the vote, a group with
+fewer than $d$ unflagged units keeps the coefficients of the best-scoring replicate $b^{\ast}$ of
+the last stage. The final reweighting step recomputes the flags at the current fit and refits
+each group on its unflagged units.
+
+\paragraph{Concentration steps.}
+Every unit is assigned to its nearest surface, the $h$ units with the smallest squared
+residuals are kept, and each group is refitted on its kept units; this is repeated until the
+trimmed sum of squares stops decreasing, at most $200$ times.
+
+\paragraph{Software.}
+The procedure is written in Python with \texttt{numpy}, \texttt{scipy} and \texttt{numba}, and
+the covariate screen uses the minimum covariance determinant of \texttt{scikit-learn} when
+there is more than one covariate. The code, the scripts that produce every table and figure,
+and the raw results are at \url{https://github.com/sorujov/eesp}.

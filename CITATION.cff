@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "EESP/ESF: code and results for 'Group recovery after trimming, and level-free flagging, in robust clusterwise regression'"
+authors:
+  - family-names: Orujov
+    given-names: Samir
+    orcid: "https://orcid.org/0009-0004-9708-2109"
+    affiliation: "ADA University; Information Communication Technologies Agency"
+version: "5.0"
+date-released: 2026-09-29
+license: MIT
+repository-code: "https://github.com/sorujov/eesp"

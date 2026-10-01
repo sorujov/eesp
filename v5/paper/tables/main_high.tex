@@ -1,0 +1,31 @@
+\begin{table}[!tb]
+\centering
+\footnotesize
+\caption{Worst mean accuracy on clean units with $25\%$ to $35\%$ of outliers. D1 to D8: second part, new data ($100$ data sets per cell); the other columns: third part at $\varepsilon=0.30$ only ($50$ data sets per cell), so column entries are minima over different sets of $\varepsilon$. Rows and conventions as in Table~\ref{tab:mainlow}. Values below $0.85$ in italics.}
+\label{tab:mainhigh}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccccccccc}
+\toprule
+Method & D1 & D2 & D3 & D4 & D6 & D7 & D8 & D5 & $K=4$ & Small & Clust. & Other \\
+\midrule
+ESF (with the recovery step) & 0.91 & \textit{0.55} & \textit{0.84} & 0.90 & \textit{0.58} & 0.88 & 1.00 & \textit{0.53} & \textit{0.72} & \textit{0.75} & \textit{0.55} & 0.87 \\
+ESF with $m=12$ in every design & 0.91 & \textit{0.56} & \textit{0.83} & 0.89 & \textit{0.55} & 0.87 & 0.98 & \textit{0.53} & \textit{0.77} & \textit{0.66} & \textit{0.56} & 0.87 \\
+ESF alone & 0.91 & \textit{0.56} & \textit{0.84} & 0.90 & \textit{0.59} & 0.88 & 1.00 & \textit{0.53} & \textit{0.73} & \textit{0.73} & \textit{0.54} & 0.87 \\
+\addlinespace
+TCLUST-REG, $\alpha=0.25$, reweighted, then the recovery step & \textit{0.53} & \textit{0.51} & \textit{0.70} & \textit{0.53} & \textit{0.69} & \textit{0.53} & \textit{0.53} & \textit{0.53} & \textit{0.74} & \textit{0.82} & \textit{0.59} & \textit{0.52} \\
+TCLUST-REG, $\alpha=0.40$, reweighted, then the recovery step & 0.91 & \textit{0.76} & 0.87 & 0.90 & \textit{0.72} & 0.90 & 1.00 & \textit{0.53} & \textit{0.76} & \textit{0.82} & \textit{0.70} & 0.91 \\
+TCLUST-REG, $\alpha=0.30$, reweighted, then the recovery step & \textit{0.60} & \textit{0.61} & \textit{0.74} & \textit{0.63} & \textit{0.73} & \textit{0.59} & \textit{0.60} & \textit{0.53} & \textit{0.77} & 0.86 & \textit{0.62} & \textit{0.77} \\
+TCLUST-REG, $\alpha=0.25$, equal weights, reweighted, then the recovery step & \textit{0.59} & \textit{0.66} & \textit{0.71} & \textit{0.57} & \textit{0.74} & \textit{0.57} & \textit{0.64} & \textit{0.53} & \textit{0.78} & \textit{0.82} & \textit{0.61} & \textit{0.75} \\
+TCLUST-REG, $\alpha=0.25$, reweighted & \textit{0.53} & \textit{0.51} & \textit{0.70} & \textit{0.53} & \textit{0.78} & \textit{0.53} & \textit{0.53} & \textit{0.53} & \textit{0.74} & \textit{0.82} & \textit{0.55} & \textit{0.52} \\
+TCLUST-REG, $\alpha=0.40$, reweighted & 0.91 & \textit{0.76} & 0.87 & 0.90 & 0.90 & 0.90 & 1.00 & \textit{0.54} & \textit{0.76} & \textit{0.81} & \textit{0.68} & 0.91 \\
+\addlinespace
+CTLE & \textit{0.65} & \textit{0.40} & \textit{0.65} & \textit{0.47} & \textit{0.67} & \textit{0.55} & \textit{0.66} & \textit{0.51} & \textit{0.47} & \textit{0.62} & \textit{0.67} & \textit{0.69} \\
+Bisquare mixture & \textit{0.73} & \textit{0.42} & \textit{0.82} & \textit{0.76} & \textit{0.83} & \textit{0.63} & \textit{0.75} & \textit{0.53} & \textit{0.46} & \textit{0.80} & \textit{0.57} & \textit{0.68} \\
+Laplace mixture & 0.91 & \textit{0.48} & 0.90 & 0.91 & 0.90 & 0.90 & 0.94 & \textit{0.53} & \textit{0.53} & 0.86 & \textit{0.61} & 0.90 \\
+Contaminated normal mixture & 0.90 & \textit{0.37} & 0.91 & 0.90 & \textit{0.67} & \textit{0.65} & 0.85 & \textit{0.61} & \textit{0.48} & 0.88 & \textit{0.53} & \textit{0.71} \\
+Noise-component mixture & \textit{0.55} & \textit{0.40} & \textit{0.72} & \textit{0.55} & 0.87 & \textit{0.54} & \textit{0.53} & \textit{0.52} & \textit{0.46} & \textit{0.83} & \textit{0.57} & \textit{0.56} \\
+Sequential RANSAC (oracle: true noise scale given) & 0.91 & \textit{0.64} & 0.91 & 0.91 & \textit{0.73} & 0.91 & 0.98 & \textit{0.53} & \textit{0.71} & 0.89 & \textit{0.63} & 0.90 \\
+Least squares (50 starts) & \textit{0.53} & \textit{0.37} & \textit{0.70} & \textit{0.53} & \textit{0.53} & \textit{0.53} & \textit{0.53} & \textit{0.53} & \textit{0.47} & \textit{0.81} & \textit{0.62} & \textit{0.51} \\
+\bottomrule
+\end{tabular}}
+\end{table}

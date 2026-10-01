@@ -1,0 +1,55 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[hidelinks]{hyperref}
+\usepackage{natbib}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{multirow}
+
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{assumption}{Assumption}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\Pr}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\Dn}{\mathcal{D}_n}
+\newcommand{\appref}[1]{Appendix~\ref{#1}}
+\newcommand{\TBD}[1]{\textbf{[TBD: #1]}}
+
+\title{Clusterwise Linear Regression with an Unknown Fraction of Outliers:\\
+Exact Subsample Fits, Sequential Flagging and Group Recovery}
+\author{Samir Orujov\thanks{School of Business, ADA University, Baku, Azerbaijan.
+ORCID 0009-0004-9708-2109. E-mail: \texttt{sorujov@ada.edu.az}.}}
+\date{}
+
+\setlength{\emergencystretch}{3em}
+\begin{document}
+\maketitle
+
+\input{sections/abstract}
+\input{sections/introduction}
+\input{sections/method}
+\input{sections/theory}
+\input{sections/simulation}
+\input{sections/realdata}
+\input{sections/discussion}
+
+\section*{Declarations}
+\input{sections/declarations}
+
+\bibliographystyle{apalike}
+\input{sections/references}
+
+\input{sections/appendix}
+
+\end{document}

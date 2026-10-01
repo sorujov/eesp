@@ -1,0 +1,35 @@
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{$\varepsilon\le0.20$ (89 cells)} & \multicolumn{3}{c}{$\varepsilon\ge0.25$ (34 cells)} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method & Mean & Below $0.85$ & Worst & Mean & Below $0.85$ & Worst \\
+\midrule
+ESF & 0.914 & 2 & 0.78 & 0.820 & 13 & 0.53 \\
+ESF, $m=12$ in every design & 0.912 & 2 & 0.75 & 0.813 & 13 & 0.53 \\
+ESF alone & 0.874 & 18 & 0.60 & 0.820 & 13 & 0.53 \\
+ESF alone, $m=12$ in every design & 0.864 & 19 & 0.56 & 0.811 & 13 & 0.53 \\
+TCLUST-REG $0.40$, rw, recovery (main rival) & 0.909 & 4 & 0.81 & 0.863 & 8 & 0.53 \\
+TCLUST-REG $0.25$, rw, recovery (main rival) & 0.917 & 1 & 0.83 & 0.693 & 26 & 0.51 \\
+TCLUST-REG $0.30$, rw, recovery & 0.915 & 0 & 0.87 & 0.794 & 17 & 0.53 \\
+TCLUST-REG $0.35$, rw, recovery & 0.912 & 4 & 0.83 & 0.851 & 10 & 0.53 \\
+TCLUST-REG $0.25$, equal weights, rw, recovery & 0.919 & 0 & 0.86 & 0.769 & 24 & 0.53 \\
+TCLUST-REG $0.40$, equal weights, rw & 0.788 & 34 & 0.52 & 0.861 & 9 & 0.55 \\
+TCLUST-REG $0.40$, equal weights, rw, recovery & 0.907 & 4 & 0.79 & 0.856 & 10 & 0.54 \\
+TCLUST-REG $0.25$, adaptive second trimming, rw, recovery & 0.899 & 1 & 0.80$^{(12)}$ & 0.687 & 8 & 0.53$^{(9)}$ \\
+TCLUST-REG $0.40$, adaptive second trimming, rw, recovery & 0.893 & 1 & 0.73$^{(12)}$ & 0.765 & 4 & 0.54$^{(9)}$ \\
+TCLUST-REG $0.40$, equal scales, rw, recovery & 0.836 & 3 & 0.77$^{(7)}$ & 0.800 & 2 & 0.66$^{(4)}$ \\
+TCLUST-REG, level from the monitoring path (first stable pair), rw, recovery & 0.809 & 36 & 0.37 & 0.622 & 29 & 0.37 \\
+TCLUST-REG, level from the monitoring path (stable from there on), rw, recovery & 0.906 & 7 & 0.76 & 0.856 & 10 & 0.54 \\
+TCLUST-REG $0.40$, incremental reweighting & 0.836 & 32 & 0.55 & 0.835 & 13 & 0.54 \\
+TCLUST-REG $0.40$, incremental reweighting, recovery & 0.876 & 22 & 0.55 & 0.823 & 15 & 0.54 \\
+Trimmed CWM $0.25$, rw & 0.804 & 39 & 0.56 & 0.682 & 32 & 0.53 \\
+Trimmed CWM $0.25$, rw, recovery & 0.882 & 12 & 0.66 & 0.679 & 31 & 0.53 \\
+Trimmed CWM $0.40$, rw & 0.745 & 66 & 0.54 & 0.786 & 24 & 0.61 \\
+Trimmed CWM $0.40$, rw, recovery & 0.871 & 20 & 0.64 & 0.785 & 24 & 0.62 \\
+Mixture of $t$ regressions & 0.887 & 12 & 0.38 & 0.710 & 25 & 0.37 \\
+RLGA, trimming $0.25$, rw, recovery & 0.859 & 24 & 0.63 & 0.679 & 32 & 0.53 \\
+RLGA, trimming $0.40$, rw, recovery & 0.845 & 31 & 0.60 & 0.712 & 33 & 0.54 \\
+TCLUST-REG $0.40$, rw, recovery with robust noise range & 0.885 & 15 & 0.60 & 0.863 & 8 & 0.53 \\
+ESF with robust noise range in the recovery step & 0.892 & 10 & 0.62 & 0.820 & 13 & 0.53 \\
+\bottomrule
+\end{tabular}

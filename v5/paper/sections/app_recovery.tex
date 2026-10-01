@@ -1,0 +1,206 @@
+\subsection*{S2.3 The group-recovery step}
+\label{app:recovery}
+
+Proposition~\ref{prop:recover-value} of the paper is for fixed parameters; the step
+reads them off the data, and the reweighting refit of the candidate is not covered. The local
+peak test guards against a slice of a band of gross outliers, which the likelihood would value
+like a group; for a residual density fixed in advance it is a concave maximisation whose
+solution is zero for a band that fills the window and the Gaussian share for a Gaussian group
+over a uniform background, as follows. Let $W=3cs$, $u=1/(2W)$, $g_W$ the $\mathcal N(0,s^{2})$ density
+truncated to $[-W,W]$, and for a residual density $p$ on the window let $w^\ast(p)$ maximise
+$L_p(w)=\int p\log\{wg_W+(1-w)u\}$ over $[0,1]$.
+
+\begin{proposition}
+\label{prop:recover-peak}
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em,itemsep=2pt]
+\item $L_p$ is strictly concave, so $w^\ast(p)$ is unique, and the EM iteration in $w$
+started at $\tfrac12$ converges monotonically to it; the same holds for the sample version,
+whose maximiser converges to $w^\ast(p)$ almost surely for independent residuals of density $p$.
+\item If $|r|$ is stochastically smaller under $\tilde p$ than under $p$, then
+$w^\ast(\tilde p)\ge w^\ast(p)$.
+\item If $p=u$, then $w^\ast(p)=0$; if $p$ is uniform on $[-V,V]$, $V\le W$, then $w^\ast$
+is nonincreasing in $V$.
+\item If $p=w_0g_W+(1-w_0)u$, then $w^\ast(p)=w_0$.
+\end{enumerate}
+\end{proposition}
+
+The test thus passes a group whose units are at least half of those in the window and fails
+a slice of a band that fills it. Between the two, solving $L_p'(w)=0$ for $c=2.5$, a uniform
+band of half-width $V$ has $w^\ast\ge\tfrac12$ exactly when $V\le3.44\,s$: a band narrower
+than about seven noise scales passes the test and is left to the scale restriction and the
+likelihood. The implementation uses the untruncated normal density, which differs from
+$g_W$ by the mass $2\Phi(-3c)\approx6\times10^{-14}$ outside the window; (ii) and (iii) hold
+for it as stated. The proposition concerns a given residual density: the effect of the RANSAC
+selection on $p$ is not analysed, and the fifty EM iterations of the implementation
+approximate the limit in (i).
+
+
+\emph{Proposition~\ref{prop:recover-value} of the paper (precise statement).} Let the units have law $P$.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em,itemsep=2pt]
+\item Let $G$ be an event with $P(G)=\pi_\ast$, on which $y=x^{\top}\theta_\ast+\sigma_\ast e$
+with $e\sim\mathcal N(0,1)$ independent of $x$ given $G$. Let $F$ have noise weight
+$\pi_0>\pi_\ast$, and let $F'$ be $F$ with the line $(\theta_\ast,\sigma_\ast,\pi_\ast)$
+added and the noise weight lowered to $\pi_0-\pi_\ast$. Then \eqref{eq:recover-gain} of the paper holds
+with $\xi=\E[\log\{(R/\pi_0)f_F(u)\}\mid G]\ge0$, the extent to which $F$ already explains
+$G$, and $\nu=\E[(\pi_0/R)f_F(u)^{-1}\one_{G^{c}}]\le1-\pi_\ast$, the noise mass that $F$
+attributes to the units outside $G$; a bound on $\xi$ in terms of the distance of $G$ from
+the lines of $F$ is given below.
+\item Let $S$ be an event with $P(S)=\pi_S$, on which $y=x^{\top}\theta_S+\sigma_Se$ as in
+(i). Let $F$ contain the lines $\theta_S\pm\tfrac{\delta}{2}e_1$, $e_1$ the intercept
+coordinate, each with scale $\sigma_S$ and proportion $\pi_S/2$, and let $F''$ replace them
+by the line $(\theta_S,\sigma_S,\pi_S)$, all else equal. With $a=\delta/(2\sigma_S)$,
+$-\varphi(1)a^{2}\pi_S\le L(F'')-L(F)\le(\varphi(1)a^{2}+\tfrac14a^{4})\pi_S$. If the density
+$r$ of the other components on $S$ is replaced by $tr$ and $t\downarrow0$, the difference
+tends to $\pi_S$ times the Kullback--Leibler divergence from $\mathcal N(0,1)$ to
+$\tfrac12\mathcal N(-a,1)+\tfrac12\mathcal N(a,1)$, which lies in $[0,a^{4}/4]$.
+\end{enumerate}
+Hence, if a candidate $F_1$ arises from the original $F_0$ by the two
+operations and the right side of \eqref{eq:recover-gain} exceeds $\varphi(1)a^{2}\pi_S$, then
+almost surely $\ell_n(F_1)-\ell_n(F_0)>\tfrac{d+1}{2}\log n$ for all large $n$, and the
+candidate is accepted if its scales are admissible.
+
+\emph{Proposition~\ref{prop:recover-value}(i).} Write $f=f_F$ and $f'=f_{F'}$, so that
+$f'=f-\pi_\ast/R+(\pi_\ast/\sigma_\ast)\varphi((y-x^{\top}\theta_\ast)/\sigma_\ast)$, and
+split $L(F')-L(F)=\E[(\log f'-\log f)\one_G]+\E[(\log f'-\log f)\one_{G^{c}}]$.
+
+On $G$, $y-x^{\top}\theta_\ast=\sigma_\ast e$, and dropping the lines of $F$ from $f'$,
+\[
+f'\;\ge\;\frac{\pi_\ast}{\sigma_\ast}\varphi(e)+\frac{\pi_0-\pi_\ast}{R}
+=\frac{\pi_\ast}{\sigma_\ast}\varphi(e)\bigl(1+\tau e^{e^{2}/2}\bigr),
+\qquad \tau=\frac{(\pi_0-\pi_\ast)\sigma_\ast\sqrt{2\pi}}{\pi_\ast R}.
+\]
+Since $\E\log\varphi(e)=-\tfrac12\log(2\pi)-\tfrac12\E e^{2}=-\tfrac12\log(2\pi e)$,
+\[
+\E[\log f'\mid G]\;\ge\;\log\frac{\pi_\ast}{\sigma_\ast}-\tfrac12\log(2\pi e)+\rho,
+\qquad \rho=\E\log\bigl(1+\tau e^{e^{2}/2}\bigr)\ge0 .
+\]
+For $v\ge0$, $\log(1+v)\le2\sqrt v$ (the difference vanishes at $0$ and has derivative
+$v^{-1/2}-(1+v)^{-1}>0$), and $\E e^{e^{2}/4}=(1-\tfrac12)^{-1/2}=\sqrt2$; hence
+$\rho\le2\sqrt\tau\,\E e^{e^{2}/4}=2\sqrt{2\tau}$. Next, $f=(\pi_0/R)\{1+(R/\pi_0)\sum_k
+(\pi_k/s_k)\varphi((y-x^{\top}\theta_k)/s_k)\}$, so $\E[\log f\mid G]=\log(\pi_0/R)+\xi$. By
+Jensen's inequality, $\xi\le\log\{1+(R/\pi_0)\sum_k\pi_k\E[s_k^{-1}\varphi((y-x^{\top}\theta_k)/s_k)\mid G]\}$,
+and on $G$, $y-x^{\top}\theta_k=x^{\top}(\theta_\ast-\theta_k)+\sigma_\ast e$ with $e$
+independent of $x$; integrating over $e$ first, the convolution of two centred normal
+densities gives $\E[s_k^{-1}\varphi((y-x^{\top}\theta_k)/s_k)\mid x,G]=\varphi_k(x^{\top}(\theta_\ast-\theta_k))$,
+where $\varphi_k$ is the density of $N(0,s_k^{2}+\sigma_\ast^{2})$. Hence
+\[
+\xi\le\log\Bigl\{1+\frac{R}{\pi_0}\sum_{k}\pi_k\,\E\bigl[\varphi_k\bigl(x^{\top}(\theta_\ast-\theta_k)\bigr)\bigm| G\bigr]\Bigr\},
+\]
+the bound on $\xi$ referred to in Proposition~3(i) of the paper: it is small when the lines of
+$F$ are many scales $(s_k^2+\sigma_\ast^2)^{1/2}$ away from $G$. Multiplying by $P(G)=\pi_\ast$, the first expectation is at
+least $\pi_\ast$ times the brace in \eqref{eq:recover-gain} plus $\pi_\ast\rho$; the
+statement drops $\rho\ge0$, and the bound $\rho\le2\sqrt{2\tau}$ shows that the leading
+term is exact up to $\xi$ and the two dropped nonnegative terms, $\rho$ and the density
+of the lines of $F$ on $G$ in $f'$.
+
+On $G^{c}$, $f'\ge f-\pi_\ast/R>0$ because $f\ge\pi_0/R>\pi_\ast/R$, so
+$\log f'-\log f\ge-\log\{f/(f-\pi_\ast/R)\}$ and the second expectation is at least
+$-\Lambda$, $\Lambda=\E[\log\{f/(f-\pi_\ast/R)\}\one_{G^{c}}]$. With $t=(\pi_0/R)/f\in(0,1]$
+and $b=\pi_\ast/\pi_0<1$, $\log\{f/(f-\pi_\ast/R)\}=-\log(1-bt)$; the function
+$t\mapsto-\log(1-bt)$ is convex on $[0,1]$ and vanishes at $0$, so it is at most $t$ times
+its value at $1$, namely $t\log\{\pi_0/(\pi_0-\pi_\ast)\}$. Taking expectations over $G^{c}$
+gives $\Lambda\le\nu\log\{\pi_0/(\pi_0-\pi_\ast)\}$, and $\nu\le P(G^{c})$ since $t\le1$. \qed
+
+\emph{Proposition~\ref{prop:recover-value}(ii).} On $S$, the residuals from the two lines are
+$\sigma_Se\mp\delta/2$, so their joint density is
+\[
+A=\frac{\pi_S}{2\sigma_S}\bigl\{\varphi(e-a)+\varphi(e+a)\bigr\}
+=\frac{\pi_S}{\sigma_S}\varphi(e)\,e^{-a^{2}/2}\cosh(ae),
+\qquad\text{against}\qquad B=\frac{\pi_S}{\sigma_S}\varphi(e)
+\]
+for the single line, and $\log(B/A)=a^{2}/2-\log\cosh(ae)$. Let $r\ge0$ be the density of
+the other components, the same in both fits. Off $S$ the two densities coincide, and on $S$,
+$\log f_{F''}-\log f_F=\psi$ with $\psi=\log\{(B+r)/(A+r)\}$. Since
+$t\mapsto\log\{(B+t)/(A+t)\}$ is monotone on $[0,\infty)$ with limit $0$, $\psi$ lies between
+$\min\{\log(B/A),0\}$ and $\max\{\log(B/A),0\}$. Hence
+\[
+-\pi_SD_-(a)\;\le\;L(F'')-L(F)=\pi_S\E[\psi\mid S]\;\le\;\pi_SD_+(a),
+\]
+where $D_\pm(a)=\E[(\pm\{\tfrac12a^{2}-\log\cosh(ae)\})^{+}]$.
+Two inequalities for $x\in\R$: $\log\cosh x\le x^{2}/2$, because both sides vanish at $0$ and
+$\tanh x\le x$ for $x\ge0$; and $\log\cosh x\ge x^{2}/2-x^{4}/12$, because the difference
+vanishes at $0$ and its derivative $\tanh x-x+x^{3}/3$ is nondecreasing on $[0,\infty)$, its
+own derivative being $x^{2}-\tanh^{2}x\ge0$. By the first, $D_-(a)\le\E[(a^{2}e^{2}/2-a^{2}/2)^{+}]
+=\tfrac12a^{2}\E(e^{2}-1)^{+}=\varphi(1)a^{2}$, since
+$\E(e^{2}-1)^{+}=2\int_1^\infty(z^{2}-1)\varphi(z)\,dz=2\varphi(1)$. Further
+$D_+(a)-D_-(a)=\E\log(B/A)=\E\log\{\varphi(e)/\tfrac12(\varphi(e-a)+\varphi(e+a))\}$ is the
+Kullback--Leibler divergence stated, hence nonnegative, and by the second inequality it is at
+most $\E[a^{4}e^{4}]/12=a^{4}/4$. So $D_+(a)\le\varphi(1)a^{2}+a^{4}/4$, which gives the two
+bounds. Finally, if $r$ is replaced by $tr$, then $\psi\to\log(B/A)$ pointwise as
+$t\downarrow0$, dominated by $|\log(B/A)|\le a^{2}e^{2}/2+a^{2}/2$, which is integrable; by
+dominated convergence the difference tends to $\pi_S\E\log(B/A)$. \qed
+
+\emph{Acceptance.} If $F_1$ arises from $F_0$ by (i) and then (ii), then
+$L(F_1)-L(F_0)$ is at least the right side of \eqref{eq:recover-gain} minus
+$\varphi(1)a^{2}\pi_S$, which is positive by assumption. By the strong law, applied to the
+bounded summands $\log f_{F_1}(u_i)$ and $\log f_{F_0}(u_i)$,
+$\{\ell_n(F_1)-\ell_n(F_0)\}/n\to L(F_1)-L(F_0)>0$ almost surely, while
+$\tfrac{d+1}{2}\log n=o(n)$. \qed
+
+\emph{Proposition~\ref{prop:recover-peak}.} On the window, $g_W$ lies between
+$\varphi(3c)/(s\kappa)$ and $\varphi(0)/(s\kappa)$ with $\kappa=1-2\Phi(-3c)$, and $u>0$, so
+$\log\{wg_W+(1-w)u\}$ is bounded on $[-W,W]\times[0,1]$ and $L_p$ is finite. Write
+$q_w=wg_W+(1-w)u$.
+
+\emph{(i).} For fixed $r$, $w\mapsto\log q_w(r)$ is concave, and strictly so unless
+$g_W(r)=u$, which happens for at most two values of $r$, a $p$-null set. Hence $L_p$ is
+strictly concave and has a unique maximiser. Its derivative
+$L_p'(w)=\int p\,(g_W-u)/q_w$ is continuous and strictly decreasing, so
+$w^\ast=\sup\{w\in[0,1]:L_p'(w)\ge0\}$, the supremum of the empty set being $0$. The EM map
+is $M(w)=\int p\,wg_W/q_w$, and
+\[
+M(w)-w=\int p\,\frac{wg_W-wq_w}{q_w}=w(1-w)L_p'(w),
+\qquad
+M'(w)=\int p\,\frac{g_Wu}{q_w^{2}}>0 .
+\]
+Thus $M$ is increasing, its fixed points are $0$, $1$ and the zero of $L_p'$ in $(0,1)$
+when there is one, and $M(w)>w$ exactly when $L_p'(w)>0$, that is when $w<w^\ast$. Start at
+$w_0=\tfrac12$. If $w_0<w^\ast$, then $w_0<M(w_0)\le M(w^\ast)=w^\ast$ when $w^\ast<1$,
+and $M(w_0)\le1$ otherwise; by induction the iterates increase and stay at most $w^\ast$, so
+they converge to a fixed point in $(\tfrac12,w^\ast]$, which is $w^\ast$. If $w_0>w^\ast$,
+they decrease and stay at least $w^\ast$, and converge to a fixed point in $[w^\ast,\tfrac12)$,
+which is $w^\ast$ when $w^\ast>0$ and $0$ when $w^\ast=0$. The sample criterion
+$L_N(w)=N^{-1}\sum_{i\le N}\log q_w(r_i)$ has the same properties, with $p$ replaced by the
+empirical law, as soon as one $r_i$ has $g_W(r_i)\ne u$, which is almost sure when the
+$r_i$ have a density; the implemented iteration is its EM map, so the same argument applies
+to its maximiser $\hat w_N$. If the $r_i$ are independent with density $p$, then
+$L_N(w)\to L_p(w)$ almost surely for each $w$ in a countable dense subset of $[0,1]$, by the
+strong law for bounded summands; the functions $w\mapsto\log q_w(r)$ have derivative bounded
+by $\max(g_W,u)/\min(g_W,u)$ uniformly in $r$, so the $L_N$ are equi-Lipschitz and the
+convergence is uniform on $[0,1]$; uniform convergence to a continuous function with a unique
+maximiser on a compact set gives $\hat w_N\to w^\ast(p)$.
+
+\emph{(ii).} For $t\ge0$ put $h_w(t)=(g_W(t)-u)/(wg_W(t)+(1-w)u)$. As a function of
+$g\in(0,\infty)$, $(g-u)/(wg+(1-w)u)$ has derivative $u/(wg+(1-w)u)^{2}>0$, and $g_W(t)$ is
+decreasing in $t$, so $h_w$ is decreasing and bounded. Since
+$L_p'(w)=\E_p[h_w(|r|)]$, the stochastic order gives $L_{\tilde p}'(w)\ge L_p'(w)$ for every
+$w$, hence $\{w:L_{\tilde p}'(w)\ge0\}\supseteq\{w:L_p'(w)\ge0\}$ and
+$w^\ast(\tilde p)\ge w^\ast(p)$ by the characterisation in (i).
+
+\emph{(iii).} If $p=u$, then $L_p'(0)=\int u\,(g_W-u)/u=\int_{-W}^{W}g_W-1=0$, so
+$L_p'(w)<0$ for $w>0$ and $w^\ast=0$. With the untruncated normal density $g$ in place of
+$g_W$ the same computation gives $L_p'(0)=\kappa-1<0$, and again $w^\ast=0$. If $p$ is uniform
+on $[-V,V]$, then $|r|$ is stochastically smaller for smaller $V$, and (ii) applies; the
+proof of (ii) uses only that the peak density is decreasing in $|r|$, so it holds with $g$
+in place of $g_W$ as well.
+
+\emph{(iv).} If $p=w_0g_W+(1-w_0)u=q_{w_0}$, then $L_p'(w_0)=\int(g_W-u)=0$, so $w_0$ is the
+zero of $L_p'$ and $w^\ast=w_0$. \qed
+
+\emph{Numerical values.} The constants quoted in Section~\ref{sec:recovery-theory} were
+obtained by solving $L_p'(w)=0$ by quadrature and bisection with $s=1$ and $c=2.5$. For the
+uniform band of half-width $V$, $w^\ast$ is $0$, $0.08$, $0.18$, $0.34$, $0.71$ and $1$ at
+$V=7.5$, $6$, $5$, $4$, $3$ and $2.5$, and equals $\tfrac12$ at $V=3.44$. For a slice whose
+density on $|r|\le cs$ exceeds that on the rest of the window by a factor $1+\beta$, as the
+RANSAC selection tends to produce, $w^\ast$ reaches $\tfrac12$ at $\beta=5.2$, that is when
+the central third of the window holds $76\%$ of its units against $33\%$ for a uniform slice.
+For a mixture of a Gaussian share $w_0\in\{0.3,0.5,0.7\}$ and a uniform background the
+computed maximiser equals $w_0$ to six decimals, with $g_W$ and with the untruncated density
+alike. The bounds of Proposition~\ref{prop:recover-value} were checked by quadrature and by
+Monte Carlo with $2\times10^{6}$ units: with $R/\sigma_\ast=30$, $\pi_\ast=0.1$,
+$\pi_0=0.15$ and two lines seven scales away, the mean gain per unit of $G$ was $1.6695$
+against a leading term of $1.5768$, $\rho=0.0928$ and $\xi\le1.2\times10^{-4}$; with the
+lines three scales away the gain fell to $0.90$ and the Jensen bound on $\xi$ was $1.85$
+against a true value of $1.47$. For the un-splitting, $D_+-D_-$ and $D_-$ were within their
+bounds at $a\in\{0.1,0.25,0.5,1\}$, and with a noise floor present the mean change per unit
+of $S$ at $a=0.5$ was $0.016$, inside $[-0.049,0.061]$, against $0.012$ for the divergence.

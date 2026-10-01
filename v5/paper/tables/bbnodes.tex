@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Cost of the exact fit of one subsample by branch and bound: nodes visited and time in milliseconds (median and $90$th percentile over $200$ subsamples of ten simulated data sets with $10\%$ of outliers), and the number $K^{m}/K!$ of labellings that plain enumeration would list.}
+\label{tab:bb}
+\begin{tabular}{lccccccc}
+\toprule
+Design & $K$ & $d$ & $m$ & Nodes, median & Nodes, $90\%$ & Time (ms), median & $K^{m}/K!$ \\
+\midrule
+D1 & 2 & 2 & 8 & $91$ & $133$ & 0.03 & $128$ \\
+D1 & 2 & 2 & 12 & $309$ & $634$ & 0.08 & $2.0\times10^{3}$ \\
+D1 & 2 & 2 & 16 & $1.0\times10^{3}$ & $6.9\times10^{3}$ & 0.22 & $3.3\times10^{4}$ \\
+D2 & 3 & 2 & 12 & $1.7\times10^{3}$ & $2.9\times10^{3}$ & 0.43 & $8.9\times10^{4}$ \\
+D2 & 3 & 2 & 16 & $8.1\times10^{3}$ & $2.2\times10^{4}$ & 1.71 & $7.2\times10^{6}$ \\
+four lines & 4 & 2 & 16 & $3.0\times10^{4}$ & $6.4\times10^{4}$ & 7.25 & $1.8\times10^{8}$ \\
+four lines & 4 & 2 & 20 & $1.6\times10^{5}$ & $6.7\times10^{5}$ & 31.50 & $4.6\times10^{10}$ \\
+D7 & 2 & 4 & 12 & $606$ & $815$ & 0.57 & $2.0\times10^{3}$ \\
+\bottomrule
+\end{tabular}
+\end{table}

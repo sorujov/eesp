@@ -1,0 +1,60 @@
+\section{Theoretical results}
+\label{sec:theory}
+
+Three partial results follow; their precise statements, proofs and scope are in Section~S2 of
+the Supplement, and none covers the passage from one stage of ESF to the next, the weighted
+vote, or the search for the candidate line. Throughout, $O\subseteq\{1,\dots,n\}$ is a fixed set of
+contaminated units whose values are arbitrary, and a subsample is \emph{clean} if it contains
+no unit of $O$.
+
+\paragraph{One stage of the sequential draw.}
+\label{sec:stage}
+Let $E_\ell$ be the set of units not flagged after stage $\ell-1$, from which stage $\ell$
+draws, and $\varepsilon_\ell=|E_\ell\cap O|/|E_\ell|$.
+
+\begin{proposition}[informal statement; the precise version is in Supplement~S2.0]
+\label{prop:clean}
+Conditionally on the data and on everything drawn before stage $\ell$, the subsamples of stage
+$\ell$ are independent and uniform on the admissible subsamples of size $m$ of $E_\ell$, each
+replicate is clean with probability $\pi_\ell=p_\ell a_\ell$, where
+$p_\ell\le(1-\varepsilon_\ell)^{m}$ is the probability that a uniform subsample of $E_\ell$ is
+clean and $a_\ell$ corrects for admissibility, and the stage contains a clean replicate
+with probability $1-(1-\pi_\ell)^{B/L}$.
+\end{proposition}
+
+The result is exact and covers one stage: a clean replicate becomes likelier as the flags
+remove outliers from $E_\ell$, but nothing here says that earlier stages do so. With $m=8$ the
+first stage contains a clean replicate with probability about $0.84$ at $\varepsilon=0.20$ and
+$0.45$ at $0.30$, and with $m=12$ about $0.51$ and $0.13$, which is where ESF breaks down.
+
+\paragraph{The final reweighting step.}
+\label{sec:reweight}
+The reweighting step takes a parameter $\theta$, recomputes the flags and refits each group on
+its unflagged units. Let the units be independent with law $P=(1-\varepsilon)P_0+\varepsilon C$,
+where under $P_0$ a unit of group $k$, drawn with probability $\pi_k>0$, has
+$y=x^{\top}\theta^{0}_k+\sigma_ke$ with $e\sim\mathcal N(0,1)$ independent of $x$, and every
+unit of $C$ lies beyond $c'>c$ scales from the nearest line; let $\eta$ be the probability that
+a clean unit is nearer to another true line than to its own.
+
+\begin{proposition}[informal statement; the precise version is Theorem~S2 of the Supplement]
+\label{thm:step}
+Apply the map at $\theta=\theta^{0}$. Under mild regularity conditions, almost surely as
+$n\to\infty$, the scale of group $k$ converges to a limit $s_k$ with $s_k/\sigma_k=1+O(\nu_k)$,
+$\nu_k$ being of the order of $\eta+\varepsilon$ divided by the mass assigned to line $k$; the
+flagged fraction converges to $\varepsilon+(1-\varepsilon)\kappa$, where $\kappa$, the fraction
+of clean units flagged, lies within $\eta$ of $\sum_k\pi_k2\Phi(-cs_k/\sigma_k)$; and the
+refitted coefficients converge to a limit that depends on the contamination only through the
+$s_k$ and lies within $O(\eta)$ of $\theta^{0}_k$ when the covariates are bounded. Without
+overlap or contamination, $\theta^{0}$ is a fixed point of the map and the flagged fraction
+tends to $2\Phi(-c)$.
+\end{proposition}
+
+This is a law of large numbers for one application of the map at a fixed input: it says what
+the flagged fraction estimates under Gaussian errors, $\varepsilon$ plus a fraction of clean
+units close to $2\Phi(-c)\approx0.012$ when the groups overlap little, and that contamination
+beyond the cut-off is removed entirely. It does not cover four things: a small group under
+moderate contamination, where the condition $\nu_k<\tfrac12$ of Theorem~S2 fails; the input
+that ESF delivers to the map; the repeated application of the map in the code; and the flagged
+fraction reported at the refitted parameter (Supplement, Section~S2.2).
+
+\input{sections/theory_recovery}

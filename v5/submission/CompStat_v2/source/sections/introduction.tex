@@ -1,0 +1,115 @@
+\section{Introduction}
+\label{sec:intro}
+
+In clusterwise linear regression each observation follows one of $K$ linear models, and the
+model that generated it is not observed. For units $(x_i,y_i)$, $i=1,\dots,n$, with $x_i\in\R^{d}$
+including an intercept,
+\begin{equation}
+y_i=x_i^{\top}\theta^{0}_{z_i}+\sigma_{z_i}e_i,\qquad z_i\in\{1,\dots,K\},
+\label{eq:model}
+\end{equation}
+where $z_i$ is the unobserved label of unit $i$, $\theta^{0}_k\in\R^{d}$ and $\sigma_k>0$ are
+the coefficients and noise scale of group $k$, and the $e_i$ are independent standard errors.
+The model goes back to \citet{quandt1972switching} and \citet{spath1979algorithm}. It is
+usually fitted by least squares over partitions or by maximum likelihood for a mixture of
+regressions \citep{desarbo1988maximum,deveaux1989mixtures}.
+
+Both fits break down when a fraction of the data does not follow any of the $K$ models: a few
+gross outliers in the response can pull a fitted line far from every group, or be fitted as a
+group of their own. The standard remedy is trimming. TCLUST-REG
+\citep{garciaescudero2010robust} discards the fraction $\alpha$ of units that fit worst and
+fits the model to the rest; the trimmed likelihood estimator (TLE) of \citet{neykov2007robust} and the
+trimmed cluster-weighted model \citep{garciaescudero2017robust} do the same within other
+likelihoods. Each needs the trimming level $\alpha$, which the analyst rarely knows. If $\alpha$
+is smaller than the fraction of outliers, the fit breaks down; if it is much larger than that
+fraction, genuine units are discarded, and a small group can be trimmed away altogether.
+
+Several ways around this choice have been proposed. One trims at a deliberately high level
+and then reinstates the units that are well fitted, a reweighting step proposed for robust
+clustering by \citet{dotto2018reweighting}; it needs a level that is high enough. Another
+monitors the fit over a grid of levels and leaves the choice to the analyst
+\citep{torti2019assessing,riani2008fitting}, or scans the number of groups and the level
+jointly by trimmed likelihood curves \citep{garciaescudero2011exploring,cerioli2018finding}.
+A third adapts the trimming within each group \citep{chang2020componentwise}, and a fourth
+replaces trimming by bounded loss functions \citep{bai2012robust}. Mixtures with a mean-shift
+parameter for each unit \citep{yu2017new}, with a uniform noise component
+\citep{banfield1993model}, or with contaminated normal errors
+\citep{punzo2017robust,mazza2020mixtures} model the outliers instead of trimming them. Multiple-model
+fitting from random minimal samples, from RANSAC
+\citep{fischler1981random} to J-linkage \citep{toldo2008robust}, T-linkage
+\citep{magri2014tlinkage} and preference analysis \citep{magri2015robust}, treats a related
+problem with the noise scale as a user-set threshold, and does not ask whether what it
+discards is a missed model.
+
+This paper makes two proposals. The first concerns what a robust fit throws away. When one
+group is small, a trimming method at a generous level can trim it away with the outliers, and a
+fit that flags units by their residuals can spend two lines on the large group and flag the small
+one; our simulations show both happening to a group of $20\%$ of the data even without outliers.
+The \emph{group-recovery step} (Algorithm~\ref{alg:recovery}) searches the trimmed or flagged
+units for a line around which many of them are concentrated, and keeps the line if the
+likelihood of Gaussian groups plus uniform noise prefers the fit that contains it. The step
+needs only a fit and its flagged set, so it can follow TCLUST-REG with reweighting as well as
+the level-free procedure introduced next; it is what makes a generous level safe with
+unequal groups. Trimmed likelihood curves ask the same question by a joint scan; the step
+asks it locally and post hoc (Section~\ref{sec:recovery}).
+
+The second proposal is a flagging procedure that needs no level, the exact-subsample flagging
+procedure, ESF (Algorithm~\ref{alg:adaptive}). A small random subsample that contains no
+outlier, fitted by least squares over all its partitions, gives a clean fit of the model, and
+that fit identifies the outliers of the whole sample as the units far from every fitted line.
+ESF therefore draws many small subsamples, fits each one exactly, scores each fit by a bounded
+loss on the units not yet flagged, and flags the units that lie far from the best fit; later
+subsamples are drawn only from units not yet flagged. The fit ends with the reweighting step of
+robust regression \citep{rousseeuw1987robust}, and outlying covariates are flagged by a
+separate screen. A unit is flagged when its residual exceeds a fixed multiple of a robust
+scale; this cut-off takes the place of the trimming level, and it does not depend on how many
+outliers there are. Two constants stand in for the level: the subsample size $m$, set from a
+lower bound on the smallest group proportion, and the cap of $n/3$ on the flagged set beyond
+which the recovery step is not attempted; Section~\ref{sec:constants} gives a default rule for
+each. Subsampling to find a clean subset is the idea behind least median of squares and least
+trimmed squares \citep{rousseeuw1984least,rousseeuw2006computing}, behind robust linear
+grouping \citep{garciaescudero2009robust} and behind the random starts of TCLUST-REG. Here
+each subsample contains several units of every group and is solved to global optimality, so
+a clean subsample yields the clusterwise least-squares fit of that subsample and not a fit to
+$d$ points. The exact fit is the problem that the operations research literature solves on
+whole samples \citep{bertsimas2007classification,carbonneau2011globally,carbonneau2012extensions,carbonneau2014globally,fois2026clusterwise,bagirov2013nonsmooth,joki2020clusterwise,park2017algorithms},
+without treating outliers. Here it is applied about a hundred times per data set to subsamples
+of a dozen units, where a plain depth-first branch and bound is one to two orders of magnitude
+faster than a mixed-integer programme. The accuracy of ESF does not rest on the exactness:
+with ten starts of hard alternation in place of the exact fit of each subsample, ESF alone was
+within $0.01$ of the exact fit in most cells, ahead by $0.025$ in one cell and behind by
+$0.02$ and $0.04$ with four groups (Supplement, Table~S14). The exact fit removes instead the
+dependence of a subsample's fit on its starting point.
+
+The place of ESF among the trimming methods should be stated at once. In the simulation
+study, TCLUST-REG at the fixed level $0.30$ with reweighting and the recovery step matched the
+mean accuracy of ESF with up to $20\%$ of outliers and had no cell below $0.85$, where ESF had
+two; the level $0.25$ with equal group weights did better still; and the levels $0.35$ and
+$0.40$ beat ESF beyond $25\%$ of outliers (Table~\ref{tab:level}). The level $0.35$ came
+closest to serving both ranges; up to $20\%$ of outliers it fell behind ESF only with three and
+four groups, and at $35\%$ it fell behind in four designs with two groups. ESF is
+therefore not the more accurate method; its case is that it needs no level and holds up with
+three and four groups, where every fixed level with estimated group weights loses accuracy.
+
+The contributions are the following.
+\begin{enumerate}[label=(\roman*),leftmargin=2.2em,itemsep=2pt]
+\item The group-recovery step, which can follow any trimming or flagging method
+(Section~\ref{sec:recovery}).
+\item ESF (Section~\ref{sec:method}), with a comparison of exact solvers for the small
+clusterwise least-squares problems and an ablation of the exact fit (Section~\ref{sec:solvers}).
+\item Three partial results (Section~\ref{sec:theory}): the exact probability that a stage of
+the sequential draw contains a clean subsample, the large-sample limit of the final reweighting
+step and of the fraction it flags, and the value of the two operations of the recovery step in
+the population.
+\item A simulation study on $7{,}750$ data sets (Section~\ref{sec:simulation}).
+After TCLUST-REG at a generous level with reweighting, the recovery step repaired nearly all
+failures with unequal or small groups but not those with three or four groups. ESF followed by
+the recovery step was within $0.03$ of the better of the levels $0.25$ and $0.40$, chosen after
+the run, in $83$ of $89$ cells with up to a fifth of outliers, and was the less robust choice
+beyond a quarter.
+\item Three data sets (Section~\ref{sec:realdata}): the fishery and tone perception data, and taxi
+fares from an airport, where the tariff of every trip is recorded and so the true group of every
+unit is known.
+\end{enumerate}
+No method in the study is best everywhere; Section~\ref{sec:discussion} says which to use
+when. The constants of ESF and of the recovery step were the same in every experiment.

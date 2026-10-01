@@ -1,0 +1,164 @@
+\clearpage
+\section*{S5 Further tables of the paper}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Mean flagged fraction $\hat\alpha$ of ESF, by design and fraction of
+outliers $\varepsilon$.}
+\label{tab:ahat}
+\input{tables/ahat}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Computing time per data set in seconds, the first two parts of the study pooled
+(without the $\varepsilon=0.30$ cells of the first part, which the second part replaces).
+TCLUST-REG ran under GNU Octave, which is slower than MATLAB, so its times overstate its cost
+(by a factor of about $36$ against MATLAB Online on the data sets of Table~\ref{tab:matlab}, on different machines) and are indicative only.}
+\label{tab:time}
+\input{tables/time}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\caption{Plan~5: mean accuracy on clean units of ESF alone and of ESF with the
+recovery step, the best competitor chosen after the run and the paired difference (standard error in
+brackets), and the mean fractions of units flagged by their residuals and by the covariate screen
+only ($50$ data sets per cell).}
+\label{tab:plan5}
+\resizebox{\textwidth}{!}{\input{tables/plan5}}
+\end{table}
+
+\subsection*{S5.1 Detail from Section 4 of the paper}
+
+\paragraph{Solver comparison.} All solvers of Section~S4 returned the same optimal values when
+they finished, apart from subsamples whose optimum lies outside the coefficient bounds of the
+SCIP formulation.
+
+\paragraph{Ablation of the exact fit.} With the exact subsample fit replaced by one start of
+hard alternation on the subsample, ESF alone lost up to $0.04$ with three groups or three
+covariates and $0.11$ with four groups; with elemental fits, $d$ units per group fitted exactly
+as in RANSAC, it lost up to $0.11$ with two unequal groups, $0.09$ with three groups or three
+covariates and $0.25$ with four groups; ten starts of alternation were ahead of the exact fit by
+$0.025$ in one cell of D3 and behind by $0.02$ and $0.04$ with four groups (Table~S14).
+
+\paragraph{Constants of ESF.} The $0.975$ quantile of the covariate screen is the usual
+choice for reweighting the minimum covariance determinant; with one covariate the robust
+distance uses the median and the median absolute deviation.
+
+\paragraph{Settings of the competitors added after Plan~1.} The mixture with Laplace errors
+of \citet{song2014robust} was run with $20$ random starts. In the mixture of contaminated normal
+regressions each group has a proportion of at least one half of good points and the rest with
+an inflated scale, both estimated ($50$ starts). The noise-component mixture has a component
+uniform over the range of the response enlarged by $10\%$ ($10$ starts). Sequential RANSAC
+extracts the $K$ lines one at a time, each the elemental fit among $500$ random draws with the
+most remaining units within $2.5$ noise scales, refitted three times on those units, which are
+then removed; in D4 it is given the mean of the two noise scales. The contaminated normal and
+noise-component mixtures flag a unit when its posterior probability of being bad, or of the
+uniform component, exceeds one half.
+In D5 and D6 the runs of TCLUST-REG first planned were also made with $5\%$ second trimming in
+the covariates. FSDA offers no automatic choice of the trimming level for regression.
+
+\paragraph{Failed fits.} CTLE failed on $36$ of the $1{,}600$ data sets of the first part used
+in Section~\ref{sec:low} of the paper and on $154$ of the $2{,}400$ of the second part; counted over its
+successful fits only, its worst mean accuracy up to $20\%$ of outliers is still $0.59$ in D2 and
+$0.72$ in D8.
+
+\paragraph{Variation between seeds in the comparison of Plan~1.} In D3 at $\varepsilon=0.20$,
+where the largest shortfall of ESF alone against the best competitor occurs, ten runs of
+ESF alone with different seeds or constants on the same $50$ data sets gave mean accuracies
+between $0.885$ and $0.914$.
+
+\paragraph{Coefficient error.} The coefficient error, the largest distance between a fitted
+and a true coefficient vector after relabelling, tells the same story as the accuracy
+(Table~S19). Where a method keeps its accuracy near the ceiling, its median error is between
+$0.1$ and $0.4$; where it fails, the error is of the order of the distance between the lines or
+larger.
+
+\paragraph{Flagged fraction.} At low contamination the excess of the flagged fraction of the
+procedure over $\varepsilon$ is largest in D4, where the noisier group overlaps the other most.
+It falls well below $\varepsilon$ from $\varepsilon=0.25$ in D5 and D6 and from
+$\varepsilon=0.30$ in D2. After TCLUST-REG at either conservative level, reweighting and the
+recovery step, the flagged fraction differs from that of ESF by at most $0.036$ in any
+cell with $\varepsilon\le0.20$.
+
+\paragraph{Competitor effort.} With $100$ starts (Table~S21) the contaminated normal and
+Laplace mixtures stayed, with three groups, at $0.86$ and $0.67$ without outliers and at about
+$0.5$ and $0.61$ at $\varepsilon=0.20$; with four groups the Laplace mixture stayed below $0.73$
+at every level, against about $0.95$ for ESF. The noise-component mixture with $100$
+starts became worse with three groups and in D8 from $\varepsilon=0.20$, presumably because its
+fits of higher likelihood absorb the outliers into a wide Gaussian component, and better with
+high-leverage points. One extra start from the least-squares partition (Table~S27) repaired the
+contaminated normal and noise-component mixtures without outliers (three groups: $0.89$; four
+groups: $0.95$), but not with outliers, where it improved them by at most $0.04$ and in places
+made them worse.
+
+\paragraph{Cost.} The competitors run from published software took about three minutes with
+second trimming in the covariates. Our implementations of the contaminated normal and
+noise-component mixtures, plain ECM and EM fits, took $0.46$ and $0.02$ seconds per data set.
+With $n=1000$ the running time of ESF alone grows from $0.07$ to about $0.1$ seconds,
+against two to about thirty seconds for the published competitors.
+
+\paragraph{Outliers of the designs.} Uniform outliers (D6) are redrawn while within three noise
+scales of a true line, so that every outlier is a genuine one; the high-leverage outliers of D5
+have responses far from both lines at their covariate values.
+
+\paragraph{Third part of the study.} The clustered outliers of the third part sit in a tight
+cloud at covariate value about $2$ and response about $20$ noise scales. With dependent
+covariates the covariate screen flags two to three percentage points more of the clean units
+than with independent covariates, because the joint distribution of the covariates is not
+elliptical. With groups of $80\%$ and $20\%$ or $85\%$ and $15\%$ at $\varepsilon=0.30$ the first
+step flags $0.26$ to $0.28$ of the units on average. With $t_3$ errors and outliers the flagged
+fraction exceeds $\varepsilon$ by two to five percentage points while still flagging every
+outlier (Table~S25); the flagged fraction estimates the contamination only relative to Gaussian
+errors. In Plan~5 the excess of the flagged fraction over $\varepsilon$ arose mostly without
+outliers, and the covariate screen flagged under $1\%$ of the units (Table~S33).
+
+\paragraph{Confirmation of the recovery step under Plan~3.} The step changed the fit on $3.4\%$ of
+the data sets, and lowered a cell mean by $0.007$ to $0.010$ only where ESF had already
+broken down.
+
+\paragraph{Repeated runs.} In the five runs with different seeds, the fraction of data sets on
+which the accuracies differed by more than $0.05$ was at most $15\%$ in any one design with up to
+$20\%$ of outliers, the design with clustered outliers. The losses with $B=500$ presumably have
+the cause described in Section~\ref{sec:further} of the paper: the selection criterion of ESF alone can
+prefer two lines on the large group to one line on each group, so a wider search finds such fits
+more often, and with a small group the first step is biased.
+
+\paragraph{Sensitivity of the recovery step to the limit on the flagged fraction.} A limit of $0.40$
+instead of $\tfrac13$ gained up to $0.05$ in the two small-group designs at $\varepsilon=0.30$
+and moved no other cell by more than $0.01$ (Table~S23).
+
+\paragraph{Tone perception data.} About $60\%$ of the $85$ trials nearest the rising line lie
+within $0.01$ of it and the others spread up to $0.5$.
+
+\paragraph{The recovery step after TCLUST-REG at level $0.40$.} Apart from the uniform-noise
+design, the step harms the level by at most $0.016$, in D5 at $30\%$ of outliers. With uniform
+noise at $35\%$, moving each constant of the step one step up or down, and a limit of $0.25$
+instead of $\tfrac13$ on the flagged fraction, did not prevent the loss; the restriction factor
+$8$ recovered $0.026$ of it.
+
+\paragraph{Fishery data, other methods.} CTLE agrees with TCLUST-REG at low levels, and the
+trimmed cluster-weighted model varies with its starts at every level. With $K=3$, ESF
+alone gave no stable answer for any subsample size from $m=12$ to $m=20$.
+
+\paragraph{Fishery data, TCLUST-REG at level $0.15$.} Between the levels that treat the cheap
+flows as a group and those that separate the two dearer price levels, at level $0.15$, four of
+the ten starts of TCLUST-REG return two lines with the same intercept and different slopes.
+
+\paragraph{Taxi data.} The trips treated as contamination use other tariffs (suburban
+destinations, Newark airport, negotiated fares) or are invalid records (a fare, distance or
+duration of zero or less, or a duration above three hours). The data and the script that draws
+the twenty samples are in the repository. We did not add noise to the flat fares, since the exact
+group is the structure of interest.
+
+\paragraph{Fishery data, dependence on the seed.} Among twenty disjoint sets of five seeds,
+keeping the fit of highest likelihood under the model of the recovery step returned the cheap group
+and the dearer line (intercepts $2.16$ to $2.18$ and $2.78$) every time with $K=2$, and the
+three price levels (intercepts $1.90$ to $1.91$, $2.49$ to $2.54$ and $2.81$ to $2.84$) every
+time with $K=3$. More replicates also help: in a second set of twenty seeds, these fits were
+returned by $17$, $18$ and $19$ seeds with $B=100$, $500$ and $1000$ for $K=2$, and by $14$, $18$
+and $19$ for $K=3$.

@@ -1,0 +1,27 @@
+{
+  "title": "EESP/ESF: code and results for \"Group recovery after trimming, and level-free flagging, in robust clusterwise regression\"",
+  "upload_type": "software",
+  "description": "<p>Code, raw results and dated analysis plans for S. Orujov, <em>Group recovery after trimming, and level-free flagging, in robust clusterwise regression</em> (2026), submitted to Computational Statistics. The current version is in the folder v5 (see v5/README.md): ESF (exact-subsample flagging), the group-recovery step, the data generators, the TCLUST-REG drivers for FSDA under Octave, a MATLAB check of TCLUST-REG, the scripts that write every table and figure, and the raw per-data-set results of the 7,750 simulated data sets. Earlier versions of the method (EESP, v3) are kept in v3/.</p>",
+  "creators": [
+    {
+      "name": "Orujov, Samir",
+      "affiliation": "ADA University; Information Communication Technologies Agency",
+      "orcid": "0009-0004-9708-2109"
+    }
+  ],
+  "license": "MIT",
+  "version": "5.0",
+  "language": "eng",
+  "keywords": [
+    "clusterwise regression",
+    "mixture of regressions",
+    "ensemble clustering",
+    "subsampling",
+    "robust clustering",
+    "trimming",
+    "exact optimisation",
+    "robust regression",
+    "TCLUST-REG",
+    "outlier detection"
+  ]
+}

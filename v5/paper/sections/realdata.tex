@@ -1,0 +1,108 @@
+\section{Three data sets}
+\label{sec:realdata}
+
+\subsection{The fishery data}
+\label{sec:fishery}
+
+The fishery data \citep{riani2008fitting}, distributed with FSDA, record $677$ monthly import
+flows of one fishery product into the European Union from a third country: the quantity and
+the value of each flow. They are the standard example for TCLUST-REG and the forward search
+\citep{perrotta2009new,cerioli2014robust}: flows priced differently form lines through the
+origin, and a number of flows fit none of them. We work on the logarithmic scale, where value
+$=$ price $\times$ quantity becomes a line of slope one whose intercept is the log price, the
+spread of the errors no longer grows with the quantity, and the concentration of small flows
+near the origin, which \citet{cerioli2014robust} handle by thinning, disappears. Twenty-six
+flows with zero quantity or value have no logarithm and are left out, which leaves $651$. The
+published analyses \citep{perrotta2009new,cerioli2014robust,torti2019assessing} keep them and
+work on the raw scale, where the heteroscedasticity and the dense region near the origin are
+part of the problem; the analysis below therefore answers a different question and is not a
+comparison with their results. We fit $K=2$ groups with the constants of Section~\ref{sec:constants} and
+$m=8$.
+
+Supplement Table~S42 and Figure~S1 show the results. ESF alone finds two lines
+of slope close to one, with intercepts $2.57$ and $2.85$, that is prices of about $13$ and
+$17$, and flags $11\%$ of the flows, about $80\%$ of them priced below both lines. The recovery
+step finds that these cheap flows lie close to a line of their own: for $19$ of $20$ seeds it
+replaces the line at $2.57$ by a line with intercept $2.16$, a price of about $9$, keeps one
+line through the two dearer price levels (intercept $2.78$), and flags $3\%$ of the flows.
+
+TCLUST-REG gives the same two answers, but which one depends on the trimming level: at levels
+up to $0.08$ it treats the cheap flows as a group, with intercepts between $2.2$ and $2.3$, as
+ESF does; from level $0.20$ on it separates the two dearer price levels, as ESF alone does,
+and its estimates then vary from one random start to another (Supplement, Section~S5). With the long search, reweighting and the recovery step,
+level $0.25$ returns the cheap group and the dearer line (intercepts $2.15$ to $2.16$ and
+$2.78$, $3\%$ of the flows flagged) from all ten starts, and level $0.40$ from three of ten;
+without the recovery step both levels separate the two dearer price levels.
+
+The data suggest three price levels. With $K=3$ and $m=16$, ESF returns lines with intercepts
+$1.90$ to $1.91$, $2.50$ to $2.54$ and $2.82$ to $2.83$, slopes between $0.94$ and $1.00$, and
+$3\%$ of the flows flagged, for $12$ of $20$ seeds; the other seeds give other fits. The
+best-of-five rule of Section~\ref{sec:constants} returned the cheap group and the dearer line
+with $K=2$, and the three price levels with $K=3$, every time over twenty disjoint sets of
+seeds (Supplement, Section~S5). The Bayesian information criterion of the same model
+prefers $K=2$ (Section~\ref{sec:discussion}); whether the cheap flows are a price level or
+anomalous declarations is a question for the subject-matter expert.
+
+
+\subsection{The tone perception data}
+\label{sec:tone}
+
+The tone perception data \citep{deveaux1989mixtures}, distributed with the R package
+\texttt{mixtools} \citep{benaglia2009mixtools}, record $150$ trials in which a musician tuned a
+tone to the octave above a fundamental with stretched overtones; the tuned ratio lies either
+near $2$ or near the stretch ratio, so the data form a nearly flat line and a line of slope
+one. \citet{bai2012robust} added ten identical points at $(0,4)$, far
+from both lines and outside the range of the covariate. We fit $K=2$ with the constants of
+Section~\ref{sec:constants} and $m=8$, to the original data and with the ten points added
+(Supplement, Table~S35). On the original data every method finds the two lines, except the
+trimmed cluster-weighted model at level $0.25$, which returns other fits from two of its ten
+starts. With the ten points added, $6\%$ of the enlarged sample, one of the two lines is lost
+from every start by TCLUST-REG at levels $0.02$ and $0.05$, by the trimmed cluster-weighted
+model at level $0.05$ and by the Laplace mixture; the trimmed cluster-weighted model at levels
+$0.10$ and $0.25$ loses it from three and six of its ten starts, and the noise-component
+mixture for $7$ of $20$ seeds. ESF returns the same two
+lines, to within $0.01$, for every seed, as do CTLE, the contaminated normal mixture and
+TCLUST-REG from level $0.10$ on, with either search; the recovery step found no group among the
+flagged trials. The flagged fraction of ESF, $0.25$ to $0.27$ on the original data, is not a
+count of gross outliers: a tight core of trials sets the robust scale of the rising line, so
+$18$ to $20$ trials of that line are flagged by their residuals, and the covariate screen flags
+$14$ more (Supplement, Section~S5); TCLUST-REG with reweighting flags $19\%$. The fitted
+lines are not affected.
+
+\subsection{Taxi fares from an airport}
+\label{sec:taxi}
+
+The third example has a known answer. The New York City Taxi and Limousine Commission publishes
+every yellow-taxi trip \citep{tlc2024trip}; we took the $157{,}264$ trips of March 2024 that
+started at John F.\ Kennedy airport and carry a rate code. Their fare, before tolls, surcharges
+and tips, follows one of two tariffs: a flat fare of $70$ dollars to Manhattan (rate code 2
+with a valid record, $53\%$ of the trips), or the meter, which charges by distance and, in slow
+traffic, by time (rate code 1, $38\%$); the remaining $9.6\%$ use other tariffs or are invalid
+records (Supplement, Section~S5) and are treated as contamination. We regressed the fare on the
+distance and the duration, $d=3$, with $K=2$ and $m=10$; nothing was removed, and the rate
+code gives the true group of every clean trip. Twenty random samples of $2{,}000$ trips were
+fitted by every method of Section~\ref{sec:simulation} except sequential RANSAC, which needs
+the noise scale. The flat-fare group lies exactly on its line, so more than half of the units
+have residual zero and the scale of the scoring step, a median of squared residuals, is zero;
+the guard mentioned in Section~\ref{sec:design} takes the median over the units that a
+replicate does not fit exactly.
+
+Supplement Table~S43 gives the results. ESF found both tariffs in all twenty samples: the flat
+fare exactly, and a metered line with median intercept $2.63$ dollars, $3.04$ dollars per mile
+and $0.33$ dollars per minute, against $2.40$, $3.06$ and $0.33$ for the fit to all metered
+trips. Its accuracy of $0.978$ is the ceiling that the best methods share: TCLUST-REG and the
+trimmed cluster-weighted model at levels $0.10$ to $0.40$, the bisquare, contaminated normal and
+noise-component mixtures all reach $0.975$ to $0.979$, as does TCLUST-REG with the long search,
+reweighting and the recovery step at both levels, with smaller coefficient errors ($0.10$ and
+$0.14$ against $0.23$); the recovery step changed none of its fits. TLE at levels $0.10$ and
+$0.15$ and CTLE stopped with an error on most samples, presumably because the flat-fare group
+has no variance; the example shows that the methods hold on a group without noise, not that
+one is better than another. ESF took a median of $31$ seconds
+per sample, most of it in the minimum covariance determinant of the covariate screen, for which
+we used a general-purpose implementation (Supplement, Table~S43). Its flagged fraction, $0.23$, is more than twice the contamination: the metered fares depend on the
+time spent in slow traffic, not on the duration, and their residuals have heavy tails, so
+$16\%$ of the clean trips are flagged, more than half of them by the covariate screen, which
+reads the long, skewed trips as outlying covariates; $89\%$ of the contaminated trips are
+flagged. TCLUST-REG with reweighting, which has no covariate screen, flags $0.14$. The
+best-of-five rule of Section~\ref{sec:constants} failed here once, because with a group that
+has no noise the likelihood rewards any line through tied points.

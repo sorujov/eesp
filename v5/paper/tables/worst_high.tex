@@ -1,0 +1,48 @@
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Competitor settings as first planned: worst mean accuracy on clean units (the lowest of the cell means) over $\varepsilon\in\{0.25,0.30,0.35\}$ (second part of the study, new data), by design. Values below $0.85$ in italics. Columns: the seven designs without high-leverage points, then D5. $^{\ast}$With $5\%$ second trimming in the covariates (run in D5 and D6 only). Standard errors as in Table~S37.}
+\label{tab:worsthigh}
+\resizebox{\textwidth}{!}{\begin{tabular}{lcccccccc}
+\toprule
+Method & D1 & D2 & D3 & D4 & D6 & D7 & D8 & D5 \\
+\midrule
+ESF & 0.91 & \textit{0.55} & \textit{0.84} & 0.90 & \textit{0.58} & 0.88 & 1.00 & \textit{0.53} \\
+ESF alone & 0.91 & \textit{0.56} & \textit{0.84} & 0.90 & \textit{0.59} & 0.88 & 1.00 & \textit{0.53} \\
+Earlier version, no covariate screen (ablation) & 0.87 & \textit{0.52} & \textit{0.81} & 0.88 & \textit{0.56} & \textit{0.75} & 1.00 & \textit{0.53} \\
+\addlinespace
+TCLUST-REG, $\alpha=0.05$ & \textit{0.54} & \textit{0.37} & \textit{0.68} & \textit{0.54} & \textit{0.56} & \textit{0.53} & \textit{0.53} & \textit{0.53} \\
+TCLUST-REG, $\alpha=0.10$ & \textit{0.53} & \textit{0.37} & \textit{0.69} & \textit{0.53} & \textit{0.58} & \textit{0.53} & \textit{0.53} & \textit{0.53} \\
+TCLUST-REG, $\alpha=0.15$ & \textit{0.53} & \textit{0.38} & \textit{0.70} & \textit{0.53} & \textit{0.64} & \textit{0.53} & \textit{0.53} & \textit{0.53} \\
+TCLUST-REG, $\alpha=0.25$ & \textit{0.53} & \textit{0.54} & \textit{0.71} & \textit{0.53} & \textit{0.79} & \textit{0.53} & \textit{0.53} & \textit{0.53} \\
+TCLUST-REG, $\alpha=0.40$ & 0.91 & \textit{0.73} & 0.91 & 0.91 & 0.90 & 0.86 & 1.00 & \textit{0.55} \\
+TCLUST-REG, $\alpha=0.25$, reweighted & \textit{0.53} & \textit{0.54} & \textit{0.70} & \textit{0.53} & \textit{0.78} & \textit{0.53} & \textit{0.53} & \textit{0.53} \\
+TCLUST-REG, $\alpha=0.40$, reweighted & 0.91 & \textit{0.70} & 0.87 & 0.90 & 0.90 & 0.86 & 1.00 & \textit{0.55} \\
+TCLUST-REG, $\alpha=0.40$, reweighted, then the recovery step & 0.91 & \textit{0.70} & 0.87 & 0.90 & \textit{0.74} & 0.85 & 1.00 & \textit{0.54} \\
+Trimmed alternation, $\alpha=0.40$, reweighted, then the recovery step & 0.91 & \textit{0.81} & \textit{0.84} & 0.90 & \textit{0.75} & 0.91 & 1.00 & \textit{0.54} \\
+TCLUST-REG$^{\ast}$, $\alpha=0.10$, reweighted & -- & -- & -- & -- & \textit{0.58} & -- & -- & \textit{0.53} \\
+TCLUST-REG$^{\ast}$, $\alpha=0.25$, reweighted & -- & -- & -- & -- & \textit{0.80} & -- & -- & \textit{0.53} \\
+\addlinespace
+Trimmed CWM, $\alpha=0.05$ & \textit{0.58} & \textit{0.41} & \textit{0.68} & \textit{0.58} & \textit{0.67} & \textit{0.55} & \textit{0.61} & \textit{0.63} \\
+Trimmed CWM, $\alpha=0.10$ & \textit{0.55} & \textit{0.41} & \textit{0.68} & \textit{0.55} & \textit{0.65} & \textit{0.54} & \textit{0.56} & \textit{0.65} \\
+Trimmed CWM, $\alpha=0.15$ & \textit{0.54} & \textit{0.44} & \textit{0.70} & \textit{0.54} & \textit{0.67} & \textit{0.54} & \textit{0.56} & \textit{0.67} \\
+Trimmed CWM, $\alpha=0.25$ & \textit{0.55} & \textit{0.53} & \textit{0.71} & \textit{0.55} & \textit{0.68} & \textit{0.54} & \textit{0.56} & \textit{0.67} \\
+Trimmed CWM, $\alpha=0.40$ & \textit{0.85} & \textit{0.62} & \textit{0.64} & \textit{0.83} & \textit{0.72} & \textit{0.68} & \textit{0.80} & \textit{0.70} \\
+\addlinespace
+TLE, $\alpha=0.05$ & \textit{0.58} & \textit{0.38} & \textit{0.81} & \textit{0.60} & \textit{0.73} & \textit{0.55} & \textit{0.61} & \textit{0.53} \\
+TLE, $\alpha=0.10$ & \textit{0.54} & \textit{0.39} & \textit{0.77} & \textit{0.55} & \textit{0.80} & \textit{0.53} & \textit{0.54} & \textit{0.53} \\
+TLE, $\alpha=0.15$ & \textit{0.53} & \textit{0.39} & \textit{0.76} & \textit{0.55} & \textit{0.81} & \textit{0.53} & \textit{0.53} & \textit{0.53} \\
+TLE, $\alpha=0.25$ & \textit{0.53} & \textit{0.50} & \textit{0.80} & \textit{0.56} & 0.89 & \textit{0.54} & \textit{0.54} & \textit{0.53} \\
+TLE, $\alpha=0.40$ & 0.91 & \textit{0.71} & \textit{0.68} & 0.91 & 0.88 & 0.89 & 0.86 & \textit{0.53} \\
+\addlinespace
+CTLE & \textit{0.65} & \textit{0.40} & \textit{0.65} & \textit{0.47} & \textit{0.67} & \textit{0.55} & \textit{0.66} & \textit{0.51} \\
+Bisquare mixture & \textit{0.73} & \textit{0.42} & \textit{0.82} & \textit{0.76} & \textit{0.83} & \textit{0.63} & \textit{0.75} & \textit{0.53} \\
+Laplace mixture & 0.91 & \textit{0.48} & 0.90 & 0.91 & 0.90 & 0.90 & 0.94 & \textit{0.53} \\
+Contaminated normal mixture & 0.90 & \textit{0.37} & 0.91 & 0.90 & \textit{0.67} & \textit{0.65} & 0.85 & \textit{0.61} \\
+Noise-component mixture & \textit{0.55} & \textit{0.40} & \textit{0.72} & \textit{0.55} & 0.87 & \textit{0.54} & \textit{0.53} & \textit{0.52} \\
+\addlinespace
+Sequential RANSAC (true noise scale given) & 0.91 & \textit{0.64} & 0.91 & 0.91 & \textit{0.73} & 0.91 & 0.98 & \textit{0.53} \\
+Least squares (50 starts) & \textit{0.53} & \textit{0.37} & \textit{0.70} & \textit{0.53} & \textit{0.53} & \textit{0.53} & \textit{0.53} & \textit{0.53} \\
+\bottomrule
+\end{tabular}}
+\end{table}

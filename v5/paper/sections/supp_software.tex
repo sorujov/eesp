@@ -1,0 +1,53 @@
+\section*{S1 Software and settings of the competitors}
+\label{supp:software}
+
+TCLUST-REG is the function \texttt{tclustreg} of the FSDA toolbox, a MATLAB toolbox. We ran it
+unmodified (GitHub commit \texttt{37f998e} of 24 September 2026) under GNU Octave~9.4 with the
+\texttt{statistics} package ($1.6.7$ for the simulations, $1.6.3$ for the data of Section~5),
+with three one-line substitutes for MATLAB functions that Octave lacks: a version check that
+returns false, \texttt{coder.target}, which returns true for \texttt{"MATLAB"}, and
+\texttt{convertStringsToChars}, which returns its arguments; they are in the repository. The runs
+with adaptive second-level trimming (Section~S6) needed a fourth, for
+\texttt{any(x,'all')}, which Octave's \texttt{any} does not accept.
+
+TCLUST-REG was then run again in MATLAB (R2026a Update~5 in MATLAB Online, FSDA at the same
+commit, no substitutes) on $80$ data sets, ten replications of each of the eight design cells of
+Table~\ref{tab:matlab}, each at both levels with $1000$ starts and $50$ refinement steps. MATLAB's
+random number generator differs from Octave's, so the two programs drew different starts. They
+returned the same coefficients, to the ten significant digits both programs write and up to the
+labelling of the groups, in $68$ of the $160$ fits; in the other $92$ the largest coefficient
+difference exceeded $2\times10^{-3}$ of the largest coefficient. The Octave runs did not record the objective, so each fit was also scored by one criterion computed from its
+coefficients: concentration steps at the fit's level with the ratio of the group variances bounded
+by $12$, then the trimmed classification log-likelihood. On the MATLAB fits this score equalled
+the objective that MATLAB reports to within $0.5$ in $137$ of the $160$ fits and differed from it
+by up to $13$ in the rest. MATLAB's fit scored higher by more than
+$0.5$ in $28$ fits and Octave's in $30$; the rest were within $0.5$. With the margin raised to $2$ the counts were $21$ and $22$, and
+with $5$ they were $17$ and $12$. Neither program found better
+optima more often, and the differences are those of two random searches. After reweighting and
+the recovery step the mean accuracy over the $160$ fits was $0.836$ in MATLAB and $0.830$ in
+Octave. Cell means differed by up to $0.09$, and by more than $0.05$ only in cells where no fit agreed. MATLAB Online took a median of $1.2$ seconds per fit and Octave, on our cluster, $41$ seconds.
+The two ran on different machines, so the ratio of about $36$ mixes interpreter and hardware; the
+times of TCLUST-REG in Table~\ref{tab:time}, measured on the cluster, overstate its cost in MATLAB
+by a factor of that order.
+
+The trimmed cluster-weighted model, TLE, CTLE, the bisquare mixture and the Laplace mixture come
+from the R package \texttt{RobMixReg}~1.1.3; the trimmed cluster-weighted model was given $50$
+random starts and $20$ concentration steps, more than its defaults, and the Laplace mixture is
+\texttt{mixLp} with \texttt{nit}$=20$. The bisquare mixture \texttt{mixlinrb\_bi} raised an error
+in our R session, because its single-start routine fits \texttt{lm(formula, data, weights = w)}
+with a formula whose environment does not contain \texttt{w}; we ran a copy of the two package
+functions in which only this line sets the formula environment first (\texttt{bisq\_patched} in
+\texttt{r\_methods.R}). The computation is otherwise the package's. No package offers the contaminated normal and the
+noise-component mixtures of regressions, so the implementations are ours. The contaminated
+normal mixture is fitted by an ECM algorithm from $50$ starts, each from $K$ random elemental
+lines with the units far from all of them starting as bad points, with the inflation started at
+$20$ and the ratio of the group variances bounded by $12$; starts from random partitions, which
+we tried first, were captured by the outliers. The noise-component mixture is fitted by EM from
+$10$ random partitions, the best continued after $10$ iterations, with the ratio of the component
+variances bounded by $12$, as in TCLUST-REG. Table~\ref{tab:S21} repeats the three mixtures with
+more starts.
+
+A simple trimmed alternation of our own at the same five levels, with the reweighting step,
+completes the set that the comparison of Plan~1 used; it is a home-made
+baseline, so it appears in the Supplement only, although it is the best competitor in some
+cells of Table~\ref{tab:S1}.

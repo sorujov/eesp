@@ -1,0 +1,48 @@
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Competitor settings as first planned (TCLUST-REG with $300$ random starts and $10$ refinement steps): worst mean accuracy on clean units (the lowest of the cell means) over $\varepsilon\in\{0,0.05,0.10,0.20\}$, by design, first part of the study. Values below $0.85$ in italics. Columns: the seven designs without high-leverage points, then D5. $^{\ast}$With $5\%$ second trimming in the covariates (run in D5 and D6 only). The Monte Carlo standard error of a cell mean is about $0.003$ near the ceiling and up to $0.05$ where a method fails (Tables~S4--S11).}
+\label{tab:worstlow}
+\resizebox{\textwidth}{!}{\begin{tabular}{lcccccccc}
+\toprule
+Method & D1 & D2 & D3 & D4 & D6 & D7 & D8 & D5 \\
+\midrule
+ESF & 0.91 & 0.89 & 0.90 & 0.90 & 0.89 & 0.91 & 1.00 & 0.85 \\
+ESF alone & 0.91 & 0.89 & 0.89 & 0.90 & 0.90 & 0.91 & 1.00 & 0.85 \\
+Earlier version, no covariate screen (ablation) & 0.90 & 0.89 & 0.90 & 0.90 & 0.87 & 0.90 & 1.00 & \textit{0.53} \\
+\addlinespace
+TCLUST-REG, $\alpha=0.05$ & \textit{0.53} & \textit{0.37} & \textit{0.69} & \textit{0.55} & 0.86 & \textit{0.52} & \textit{0.52} & \textit{0.54} \\
+TCLUST-REG, $\alpha=0.10$ & \textit{0.53} & \textit{0.46} & \textit{0.70} & \textit{0.52} & 0.91 & \textit{0.53} & \textit{0.53} & \textit{0.55} \\
+TCLUST-REG, $\alpha=0.15$ & \textit{0.54} & \textit{0.60} & \textit{0.78} & \textit{0.65} & 0.91 & \textit{0.55} & \textit{0.58} & \textit{0.57} \\
+TCLUST-REG, $\alpha=0.25$ & 0.91 & \textit{0.84} & 0.89 & 0.91 & 0.91 & 0.90 & 1.00 & \textit{0.83} \\
+TCLUST-REG, $\alpha=0.40$ & 0.90 & \textit{0.76} & \textit{0.68} & 0.90 & 0.91 & 0.90 & 1.00 & 0.87 \\
+TCLUST-REG, $\alpha=0.25$, reweighted & 0.91 & 0.87 & 0.89 & 0.90 & 0.91 & 0.91 & 1.00 & \textit{0.83} \\
+TCLUST-REG, $\alpha=0.40$, reweighted & 0.90 & \textit{0.80} & \textit{0.67} & 0.90 & 0.91 & 0.91 & 1.00 & 0.87 \\
+TCLUST-REG, $\alpha=0.40$, reweighted, then the recovery step & 0.91 & \textit{0.80} & 0.91 & 0.90 & 0.91 & 0.91 & 1.00 & 0.87 \\
+Trimmed alternation, $\alpha=0.40$, reweighted, then the recovery step & 0.91 & 0.87 & \textit{0.83} & 0.86 & 0.91 & 0.91 & 1.00 & 0.88 \\
+TCLUST-REG$^{\ast}$, $\alpha=0.10$, reweighted & -- & -- & -- & -- & 0.91 & -- & -- & \textit{0.57} \\
+TCLUST-REG$^{\ast}$, $\alpha=0.25$, reweighted & -- & -- & -- & -- & 0.91 & -- & -- & 0.86 \\
+\addlinespace
+Trimmed CWM, $\alpha=0.05$ & \textit{0.56} & \textit{0.43} & \textit{0.70} & \textit{0.56} & \textit{0.82} & \textit{0.54} & \textit{0.58} & \textit{0.67} \\
+Trimmed CWM, $\alpha=0.10$ & \textit{0.54} & \textit{0.51} & \textit{0.71} & \textit{0.54} & \textit{0.85} & \textit{0.54} & \textit{0.58} & \textit{0.68} \\
+Trimmed CWM, $\alpha=0.15$ & \textit{0.58} & \textit{0.54} & \textit{0.77} & \textit{0.63} & 0.87 & \textit{0.56} & \textit{0.67} & \textit{0.70} \\
+Trimmed CWM, $\alpha=0.25$ & 0.87 & \textit{0.65} & \textit{0.61} & \textit{0.84} & 0.86 & \textit{0.81} & \textit{0.80} & \textit{0.80} \\
+Trimmed CWM, $\alpha=0.40$ & \textit{0.74} & \textit{0.62} & \textit{0.59} & \textit{0.73} & \textit{0.78} & \textit{0.81} & 0.88 & \textit{0.76} \\
+\addlinespace
+TLE, $\alpha=0.05$ & \textit{0.55} & \textit{0.46} & \textit{0.83} & \textit{0.58} & 0.89 & \textit{0.53} & \textit{0.54} & \textit{0.53} \\
+TLE, $\alpha=0.10$ & \textit{0.53} & \textit{0.55} & \textit{0.82} & \textit{0.53} & 0.90 & \textit{0.54} & \textit{0.55} & \textit{0.53} \\
+TLE, $\alpha=0.15$ & \textit{0.56} & \textit{0.57} & 0.88 & \textit{0.65} & 0.91 & \textit{0.59} & \textit{0.54} & \textit{0.53} \\
+TLE, $\alpha=0.25$ & 0.90 & \textit{0.72} & \textit{0.66} & 0.91 & 0.91 & 0.89 & \textit{0.80} & \textit{0.53} \\
+TLE, $\alpha=0.40$ & 0.90 & \textit{0.67} & \textit{0.58} & 0.89 & 0.86 & \textit{0.83} & 0.93 & \textit{0.53} \\
+\addlinespace
+CTLE & 0.91 & \textit{0.59} & 0.87 & 0.85 & 0.87 & 0.89 & \textit{0.72} & \textit{0.73} \\
+Bisquare mixture & 0.89 & \textit{0.56} & 0.88 & 0.90 & 0.90 & 0.90 & \textit{0.80} & \textit{0.55} \\
+Laplace mixture & 0.91 & \textit{0.61} & 0.91 & 0.91 & 0.91 & 0.91 & 0.96 & \textit{0.58} \\
+Contaminated normal mixture & 0.91 & \textit{0.52} & 0.91 & 0.91 & 0.91 & 0.91 & 1.00 & \textit{0.83} \\
+Noise-component mixture & 0.91 & \textit{0.75} & 0.91 & 0.90 & 0.91 & 0.90 & \textit{0.81} & \textit{0.53} \\
+\addlinespace
+Sequential RANSAC (true noise scale given) & 0.91 & \textit{0.69} & 0.91 & 0.90 & 0.91 & 0.91 & 0.97 & \textit{0.54} \\
+Least squares (50 starts) & \textit{0.53} & \textit{0.37} & \textit{0.70} & \textit{0.52} & \textit{0.58} & \textit{0.53} & \textit{0.53} & \textit{0.53} \\
+\bottomrule
+\end{tabular}}
+\end{table}

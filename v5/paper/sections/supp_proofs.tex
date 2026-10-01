@@ -1,0 +1,127 @@
+\section*{S2 Proofs}
+\label{supp:proofs}
+
+This section proves the results of Section~3 of the paper: Proposition~\ref{prop:clean} and the guarantee for a vote within one stage (S2.0, S2.1), Proposition~\ref{thm:step} and its general version (S2.2), and Proposition~\ref{prop:recover-value} together with the result on the local peak test (S2.3). Each result is for a fixed input or fixed parameters. None covers the passage from one stage of ESF to the next, the weighted vote, or the search for the candidate line of the recovery step; the remarks that follow each proof say what it covers and what it does not.
+
+\subsection*{S2.0 Proposition~\ref{prop:clean}: precise statement and proof}
+
+Let $\mathcal F_{\ell-1}$ be the flagged set after stage $\ell-1$, with $\mathcal F_0$ the
+covariate screen, $E_\ell=\{1,\dots,n\}\setminus\mathcal F_{\ell-1}$ the set from which stage
+$\ell$ draws, $N_\ell=|E_\ell|$, $\varepsilon_\ell=|E_\ell\cap O|/N_\ell$, and $\mathcal H_{\ell-1}$ the data
+together with everything drawn before stage $\ell$. A replicate of stage $\ell$ is obtained
+by drawing uniform subsamples of size $m$ from $E_\ell$ until an admissible one is found; let
+$q^{c}_\ell$ be the fraction of admissible subsamples among the clean subsamples of $E_\ell$,
+and $q_\ell>0$ the fraction among all subsamples of $E_\ell$.
+
+\emph{Proposition~\ref{prop:clean} (precise statement).}
+Conditionally on $\mathcal H_{\ell-1}$, the subsamples of stage $\ell$ are independent, and each
+is uniform on the admissible subsamples of size $m$ of $E_\ell$, however many units two of them
+share. Let $p_\ell=\binom{N_\ell-|E_\ell\cap O|}{m}\big/\binom{N_\ell}{m}$ be the probability that a
+uniform subsample of $E_\ell$ is clean, and $a_\ell=q^{c}_\ell/q_\ell$. Conditionally on
+$\mathcal H_{\ell-1}$, each replicate of stage $\ell$ is clean with probability
+$\pi_\ell=p_\ell a_\ell$, and the stage contains a clean replicate with probability
+$1-(1-p_\ell a_\ell)^{B/L}$. Moreover $a_\ell\ge q^{c}_\ell$ and, when
+$|E_\ell\cap O|\le N_\ell-m$,
+$\{1-\varepsilon_\ell N_\ell/(N_\ell-m+1)\}^{m}\le p_\ell\le(1-\varepsilon_\ell)^{m}$.
+
+\emph{The first statement.} Fix a replicate of stage $\ell$. Conditionally on
+$\mathcal H_{\ell-1}$ its proposals are independent uniform subsamples of size $m$ of $E_\ell$,
+because $E_\ell$ is determined by $\mathcal H_{\ell-1}$ and the draws use fresh randomness. (The
+implementation draws $m$ units without replacement with equal weights on $E_\ell$ and zero
+weight elsewhere, which gives a uniform subsample of $E_\ell$.) Whether a proposal is admissible
+is determined by the proposal and the data. The first admissible proposal in a sequence of
+independent proposals has the law of one proposal conditioned on admissibility, which is the
+uniform law on the admissible subsamples; the sequence stops almost surely because $q_\ell>0$.
+Different replicates use disjoint randomness, so they are conditionally independent. \qed
+
+\emph{The rest.} By the first statement, a replicate of stage $\ell$ is clean with
+conditional probability equal to the number of admissible clean subsamples divided by the
+number of admissible subsamples. Dividing both by $\binom{N_\ell}{m}$ gives
+$\pi_\ell=p_\ell q^{c}_\ell/q_\ell=p_\ell a_\ell$. The replicates of the stage are
+conditionally independent, which gives the probability that at least one is clean. Next,
+$a_\ell\ge q^{c}_\ell$ because $q_\ell\le1$. Finally
+$p_\ell=\prod_{j=0}^{m-1}(N_\ell-|E_\ell\cap O|-j)/(N_\ell-j)$; each factor equals
+$1-|E_\ell\cap O|/(N_\ell-j)$, which lies between $1-|E_\ell\cap O|/(N_\ell-m+1)$ and
+$1-|E_\ell\cap O|/N_\ell=1-\varepsilon_\ell$. \qed
+
+\emph{Remarks.} The proposition is exact and elementary. What matters for stage $\ell$ is the contamination
+among the units still eligible: the flagged set lowers $\varepsilon_\ell$ when it contains
+outliers, and the probability of a clean replicate rises geometrically in $m$ as it does so;
+the proposition does not say that earlier stages lower $\varepsilon_\ell$. It does say where
+ESF breaks down: the first stage draws from the whole sample, less the covariate screen, and
+with $m=8$ its probability of containing a clean replicate is about $0.84$ at
+$\varepsilon=0.20$, $0.45$ at $0.30$ and $0.28$ at $0.35$, and with $m=12$ about $0.51$,
+$0.13$ and $0.06$ (taking $a_\ell=1$ and $p_\ell\approx(1-\varepsilon)^{m}$); if it finds no
+clean replicate, its flags need not remove the outliers, and the breakdown observed from
+$25\%$ to $30\%$ of outliers in some designs is of this order.
+
+\subsection*{S2.1 A vote within one stage}
+
+\emph{A vote within one stage.} The same conditional independence gives a guarantee for a vote within one stage. Suppose a
+clean replicate gives unit $i$ its correct label with probability at least $\bar q$, where the
+label refers to the least-squares partition of the clean eligible units. If
+$\pi_\ell\bar q>\tfrac12$, a plurality vote of the replicates of stage $\ell$ labels every such
+unit correctly with conditional probability at least $1-n\exp\{-2(B/L)(\pi_\ell\bar q-\tfrac12)^{2}\}$,
+whatever the contaminated replicates do (proved below). Since
+$\pi_\ell\approx(1-\varepsilon_\ell)^{m}$, this requires
+\begin{equation}
+m\;<\;\frac{\log(2\bar q)}{-\log(1-\varepsilon_\ell)}\;\approx\;\frac{\log(2\bar q)}{\varepsilon_\ell},
+\label{eq:window}
+\end{equation}
+while admissibility and the accuracy of a clean replicate require $m$ of order at least
+$(d+1)/\pi_{\min}$. The subsample size must lie between the two bounds. As the contamination among the eligible
+units grows, the range of admissible $m$ shrinks; each stage of flagging lowers that
+contamination and so widens the range again. The window can be empty: with $\bar q$ close to one, \eqref{eq:window} requires
+$\varepsilon_\ell<1-2^{-1/m}$, which is $0.083$ for $m=8$ and $0.056$ for $m=12$, so at the
+contamination levels of our experiments the guarantee applies only at stages where flagging has
+already removed most of the outliers. This guarantee covers a single stage, not the weighted vote across stages that
+Algorithm~\ref{alg:adaptive} uses; it motivates the design but says nothing about the final
+output.
+
+\emph{The vote within one stage.} Let $t_i$ be the label of unit $i$ in the least-squares
+partition of the clean eligible units, labelled by the same pilot as the replicates, and
+suppose a clean replicate gives unit $i$ the label $t_i$ with conditional probability at
+least $\bar q$. Then a replicate of stage $\ell$ gives unit $i$ the label $t_i$ with
+conditional probability $Q_i\ge\pi_\ell\bar q$, whatever the contaminated replicates do, since
+the event that the replicate is clean and labels $i$ correctly has probability $\pi_\ell$ times
+the conditional probability of a correct label given cleanness. By the first statement of Proposition~\ref{prop:clean}, the number of
+the $B/L$ replicates that give unit $i$ the label $t_i$ is binomial with success probability
+$Q_i$. If $Q_i\ge\tfrac12+\gamma$ with $\gamma>0$, the plurality differs from $t_i$ only if
+at most half of the replicates vote for $t_i$, which by Hoeffding's inequality has
+probability at most $\exp\{-2(B/L)\gamma^{2}\}$. A union bound over at most $n$ units, with
+$\gamma=\pi_\ell\bar q-\tfrac12$, gives the statement above. The window
+\eqref{eq:window} is $(1-\varepsilon_\ell)^{m}\bar q>\tfrac12$ solved for $m$, with $a_\ell=1$. \qed
+
+\subsection*{S2.2 The final reweighting step}
+\label{app:reweight}
+
+Proposition~\ref{thm:step} of Section~\ref{sec:reweight} collects parts of
+Theorems~\ref{thm:stepfixed} and~\ref{thm:steptrue} below.
+
+\input{sections/app_reweight_body}
+
+\emph{Scope of Proposition~\ref{thm:step} of the paper.} The proposition is a law of large numbers for one application of the map at a fixed input. It
+says what the flagged fraction estimates under Gaussian errors, $\varepsilon$ plus the fraction
+$\kappa$ of clean units flagged, which is close to $2\Phi(-c)\approx0.012$ when the groups
+overlap little, and that the contamination is removed entirely once it lies beyond the
+cut-off, leaving a bias of order $\eta$ from the overlap of the groups. Two restrictions of
+Theorem~\ref{thm:steptrue} should be stated. First, the constant is
+$\nu_k=\delta_k+\eta_k/2$, where $\delta_k$ is the fraction of the units assigned to surface
+$k$ that are not clean units of group $k$ and $\eta_k$ the overlap of group $k$; it satisfies
+$\nu_k\le\{(1-\varepsilon)\eta+\varepsilon\}/p_k+\eta_k/2$ with $p_k$ the mass assigned to
+surface $k$, so it is of order $\eta+\varepsilon$ divided by $p_k$ and is not small for a
+small group. Second, the theorem requires $\nu_k<\tfrac12$ for every group, a breakdown
+condition per group, and this fails for a small group with moderate contamination: with
+$\pi_k=0.15$, $\varepsilon=0.20$ and the contamination split evenly between the two assignment
+regions of two groups, $\delta_k$ is about $0.45$ without overlap and $\nu_k$ exceeds
+$\tfrac12$ once about a tenth of the group's clean units lie nearer to the other line. The
+theorem does not cover that regime. Three further things it does not cover should be stated. It does not show that ESF delivers
+an input close to $\theta^{0}$. The code applies the map more than once: once at the end of
+ESF, twice after TCLUST-REG in the reweighted rows of Section~4 of the paper, and three
+times to each candidate of the recovery step. And the reported flagged fraction $\hat\alpha$
+is evaluated at the refitted parameter $\hat\theta$, whereas the proposition concerns the
+flags computed at the input $\theta$; the two limits agree under a continuity condition that
+we do not prove (the third comment above).
+
+\input{sections/app_recovery}
+
